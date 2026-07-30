@@ -1,0 +1,134 @@
+/* Inicio estilos de tablas livewire */
+.btn-check:checked + .btn-outline-secondary {
+    background-color: #ced4da;
+    color: #212529;
+    border: 1px #ced4da;
+}
+.btn-outline-secondary {
+    border-color: #ced4da;
+}
+.size {
+    max-width: 100%;
+    width: auto;
+    height: 31px;
+}
+.btn-group input[type="radio"] {
+    display: none;
+}
+th input {
+    width: 100%;
+    border-color: #cbe4ff;
+    background-color: transparent;
+    color: #007bff;
+}
+
+.size-orden {
+    width: 56.5px;
+    height: 39px;
+}
+
+.btn-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/* Fin estilos de tablas livewire */
+
+/* Inicio Estilos para select2 */
+.select2-selection {
+    min-height: 37.8px;
+    text-align: left;
+}
+
+.select2-selection__rendered {
+    margin: 5px;
+}
+
+.select2-selection__arrow {
+    margin: 5px;
+}
+.ancho-select2 {
+    width: 293px !important;
+    margin: auto !important;
+}
+.target-element {
+    margin: 10px;
+}
+
+.campo_invalido {
+    border: none !important;
+}
+
+.color-header {
+    background-color: #7a7a7a;
+    color: #eee;
+    font-size: large;
+}
+
+/* Tema de los alerts */
+.alert-success {
+    color: #155724 !important;
+    background-color: #d4edda !important;
+    border-color: #c3e6cb !important;
+}
+.alert-danger {
+    color: #721c24 !important;
+    background-color: #f8d7da !important;
+    border-color: #f5c6cb !important;
+}
+.alert-warning {
+    color: #664d03 !important;
+    background-color: #fff3cd !important;
+    border-color: #ffecb5 !important;
+}
+
+.form-check-input {
+    transform: scale(1.5) !important; /* Ajusta el tamaño */
+    margin-right: 8px !important; /* Corrige separación */
+    margin-left: 8px !important; /* Corrige separación */
+}
+.pad-ch {
+    padding-left: 30px;
+}
+.nav-sidebar .nav-link > .right,
+.nav-sidebar .nav-link > p > .right {
+    right: 0.5rem !important;
+}
+.sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active,
+.sidebar-light-primary .nav-sidebar > .nav-item > .nav-link.active {
+    background-color: #0060c8;
+    color: #fff;
+}
+.nav-treeview > .nav-item > .nav-link.active,
+[class*="sidebar-dark-"] .nav-treeview > .nav-item > .nav-link.active:focus,
+[class*="sidebar-dark-"] .nav-treeview > .nav-item > .nav-link.active:hover {
+    background-color: rgb(255 255 255 / 85%);
+    color: #343a40;
+}
+
+/** buton orange btn */
+.btn-orange {
+    background: #fd7e14;
+    border-color: #fd7e14;
+    color: #fff;
+}
+
+.btn-orange:hover {
+    background: #e96b02;
+    border-color: #e96b02;
+    color: #fff;
+}
+
+.btn-limpiar {
+    color: #d98ca3;
+    transition: 0.15s;
+}
+
+.btn-limpiar:hover {
+    color: #ff598b;
+}
+
+.editando-campo{
+    border: 3px solid #007bff !important;
+}
+
