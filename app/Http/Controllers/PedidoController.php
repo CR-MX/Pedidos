@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pedido;
+use App\Models\Lugare;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\PedidoRequest;
@@ -28,8 +29,9 @@ class PedidoController extends Controller
     public function create(): View
     {
         $pedido = new Pedido();
+        $lugares = Lugare::orderBy('nombre')->get();
 
-        return view('pedido.create', compact('pedido'));
+        return view('pedido.create', compact('pedido', 'lugares'));
     }
 
     /**
@@ -59,8 +61,9 @@ class PedidoController extends Controller
     public function edit($id): View
     {
         $pedido = Pedido::find($id);
+        $lugares = Lugare::orderBy('nombre')->get();
 
-        return view('pedido.edit', compact('pedido'));
+        return view('pedido.edit', compact('pedido', 'lugares'));
     }
 
     /**

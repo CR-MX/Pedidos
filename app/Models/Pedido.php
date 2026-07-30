@@ -32,7 +32,7 @@ class Pedido extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['nombre', 'red_social', 'anticipo', 'fecha_hora_entrega', 'lugar_id', 'informacion_adicional'];
+    protected $fillable = ['nombre', 'red_social', 'anticipo', 'total', 'fecha_hora_entrega', 'lugar_id', 'informacion_adicional'];
 
 
     /**

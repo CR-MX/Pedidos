@@ -25,6 +25,7 @@ class PedidoRequest extends FormRequest
 			'nombre' => 'required|string',
 			'red_social' => 'required|string',
 			'anticipo' => 'required',
+			'total' => 'required',
 			'fecha_hora_entrega' => 'required',
 			'lugar_id' => 'required',
 			'informacion_adicional' => 'required|string',

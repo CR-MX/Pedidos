@@ -1,80 +1,41 @@
 @extends('adminlte::page')
 
-@section('template_title')
-    Pedidos
-@endsection
+@section('title', 'Pedidos')
 
 @section('content')
+    <br>
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header color-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                {{ __('Pedidos') }}
+                                Catálogo de Pedidos
                             </span>
 
-                             <div class="float-right">
-                                <a href="{{ route('pedidos.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
+                            <div class="float-right">
+                                <a href="{{ route('pedidos.create') }}" class="btn btn-primary btn-sm float-right"
+                                    data-placement="left">
+                                    Agregar
                                 </a>
-                              </div>
+                            </div>
                         </div>
                     </div>
                     @if ($message = Session::get('success'))
-                        <div class="alert alert-success m-4">
-                            <p>{{ $message }}</p>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ $message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
                     @endif
 
                     <div class="card-body bg-white">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover">
-                                <thead class="thead">
-                                    <tr>
-                                        <th>No</th>
-                                        
-									<th >Nombre</th>
-									<th >Red Social</th>
-									<th >Anticipo</th>
-									<th >Fecha Hora Entrega</th>
-									<th >Lugar Id</th>
-									<th >Informacion Adicional</th>
-
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($pedidos as $pedido)
-                                        <tr>
-                                            <td>{{ ++$i }}</td>
-                                            
-										<td >{{ $pedido->nombre }}</td>
-										<td >{{ $pedido->red_social }}</td>
-										<td >{{ $pedido->anticipo }}</td>
-										<td >{{ $pedido->fecha_hora_entrega }}</td>
-										<td >{{ $pedido->lugar_id }}</td>
-										<td >{{ $pedido->informacion_adicional }}</td>
-
-                                            <td>
-                                                <form action="{{ route('pedidos.destroy', $pedido->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('pedidos.show', $pedido->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('pedidos.edit', $pedido->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                        <livewire:table-pedido />
                     </div>
                 </div>
-                {!! $pedidos->withQueryString()->links() !!}
             </div>
         </div>
     </div>
