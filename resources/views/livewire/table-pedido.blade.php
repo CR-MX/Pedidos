@@ -38,6 +38,7 @@
                 <select wire:model.live="orderBy" class="form-control">
                     <option value="nombre">Nombre</option>
                     <option value="anticipo">Anticipo</option>
+                    <option value="dias_restantes">Días Restantes</option>
                     <option value="fecha_hora_entrega">Fecha Entrega</option>
                 </select>
             </div>
@@ -69,6 +70,8 @@
                     <th>Nombre</th>
                     <th>Red Social</th>
                     <th>Anticipo</th>
+                    <th>Por Cobrar</th>
+                    <th>Días Rest.</th>
                     <th>Fecha Entrega</th>
                     <th>Lugar</th>
                     <th>Acciones</th>
@@ -91,8 +94,21 @@
                         <td>{{ ++$i }}</td>
                         <td class="texto-limitado">{{ $pedido->nombre ?? '' }}</td>
                         <td>{{ $pedido->red_social ?? '' }}</td>
-                        <td>{{ $pedido->anticipo ?? '' }}</td>
-                        <td>{{ $pedido->fecha_hora_entrega ?? '' }}</td>
+                        <td>${{ number_format($pedido->anticipo ?? 0, 2) }}</td>
+                        <td>${{ number_format($pedido->por_cobrar ?? 0, 2) }}</td>
+                        <td>
+                            @php
+                                $dias = $pedido->dias_restantes ?? 999;
+                            @endphp
+                            @if ($dias >= 6)
+                                <span class="badge bg-success" style="font-size:1rem; padding:8px 12px;">{{ $dias }} días</span>
+                            @elseif ($dias >= 3)
+                                <span class="badge bg-warning text-dark" style="font-size:1rem; padding:8px 12px;">{{ $dias }} días</span>
+                            @else
+                                <span class="badge bg-danger" style="font-size:1rem; padding:8px 12px;">{{ $dias }} días</span>
+                            @endif
+                        </td>
+                        <td>{{ \Carbon\Carbon::parse($pedido->fecha_hora_entrega)->format('d/m/Y h:i A') }}</td>
                         <td>{{ $pedido->lugar_nombre ?? '' }}</td>
                         <td>
                             <form action="{{ route('pedidos.destroy', $pedido->id) }}" method="POST">

@@ -12,7 +12,7 @@
                         <div style="display: flex; justify-content: space-between; align-items: center;">
 
                             <span id="card_title">
-                                Catálogo de Pedidos
+                                Pedidos
                             </span>
 
                             <div class="float-right">

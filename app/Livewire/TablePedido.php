@@ -28,6 +28,8 @@ class TablePedido extends Component
                 'pedidos.nombre',
                 'pedidos.red_social',
                 'pedidos.anticipo',
+                DB::raw('(pedidos.total - pedidos.anticipo) as por_cobrar'),
+                DB::raw('DATEDIFF(pedidos.fecha_hora_entrega, CURDATE()) as dias_restantes'),
                 'pedidos.fecha_hora_entrega',
                 'pedidos.lugar_id',
                 'pedidos.informacion_adicional',
