@@ -112,12 +112,12 @@
                         </td>
                         <td>{{ \Carbon\Carbon::parse($pedido->fecha_hora_entrega)->format('d/m/Y h:i A') }}</td>
                         <td>{{ $pedido->lugar_nombre ?? '' }}</td>
-                        <td>
+                        <td style="white-space: nowrap;">
                             <button type="button" class="btn btn-sm btn-info" title="Ver artículos"
                                 wire:click="verArticulos({{ $pedido->id }})">
                                 <i class="fas fa-box"></i>
                             </button>
-                            <form action="{{ route('pedidos.destroy', $pedido->id) }}" method="POST">
+                            <form action="{{ route('pedidos.destroy', $pedido->id) }}" method="POST" style="display: inline;">
                                 <a class="btn btn-sm btn-success" title="Actualizar"
                                     href="{{ route('pedidos.edit', $pedido->id) }}"><i
                                         class="fa fa-fw fa-edit"></i></a>

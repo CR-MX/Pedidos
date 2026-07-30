@@ -280,6 +280,19 @@
             input.addEventListener('change', cargarPedidosMismaFecha);
             cargarPedidosMismaFecha();
         }
+
+        document.getElementById('btn-aceptar').closest('form').addEventListener('submit', function (e) {
+            var total = parseFloat(document.getElementById('total').value);
+            var anticipo = parseFloat(document.getElementById('anticipo').value);
+            if (!isNaN(total) && !isNaN(anticipo) && total <= anticipo) {
+                e.preventDefault();
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'El total debe ser mayor que el anticipo',
+                });
+            }
+        });
     });
 
     var articuloIndex = {{ isset($pedido->articulosPedidos) ? $pedido->articulosPedidos->count() : 0 }};

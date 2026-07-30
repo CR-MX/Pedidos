@@ -331,6 +331,11 @@ return [
                     'route' => 'pedidos.index',
                     'icon' => 'fa fa-list',
                 ],
+                [
+                    'text' => 'Artículos por Color',
+                    'route' => 'pedidos.articulos-por-color',
+                    'icon' => 'fas fa-palette',
+                ],
             ],
         ],
         [

@@ -6,6 +6,8 @@ use App\Models\Pedido;
 use App\Models\Lugare;
 use App\Models\Tipo;
 use App\Models\Color;
+use App\Models\ArticulosPedido;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -119,6 +121,26 @@ class PedidoController extends Controller
         });
 
         return response()->json($pedidos);
+    }
+
+    public function articulosPorColor(Request $request): View
+    {
+        $fechaStr = $request->query('date', Carbon::today()->toDateString());
+        $hoy = Carbon::parse($fechaStr);
+
+        $articulos = ArticulosPedido::with(['pedido.lugare', 'tipo'])
+            ->whereHas('pedido', function ($q) use ($hoy) {
+                $q->whereDate('fecha_hora_entrega', $hoy);
+            })
+            ->orderBy('color')
+            ->get();
+
+        $grupos = $articulos->groupBy('color');
+
+        $fecha = $hoy->format('d/m/Y');
+        $fechaInput = $hoy->format('Y-m-d');
+
+        return view('pedido.articulos-por-color', compact('grupos', 'fecha', 'fechaInput'));
     }
 
     public function destroy($id): RedirectResponse
