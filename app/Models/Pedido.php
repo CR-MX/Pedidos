@@ -48,7 +48,7 @@ class Pedido extends Model
      */
     public function articulosPedidos()
     {
-        return $this->hasMany(\App\Models\ArticulosPedido::class, 'id', 'pedido_id');
+        return $this->hasMany(\App\Models\ArticulosPedido::class, 'pedido_id', 'id');
     }
     
 }

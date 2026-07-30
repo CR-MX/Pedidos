@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pedido;
 use App\Models\Lugare;
+use App\Models\Tipo;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\PedidoRequest;
@@ -30,8 +31,9 @@ class PedidoController extends Controller
     {
         $pedido = new Pedido();
         $lugares = Lugare::orderBy('nombre')->get();
+        $tipos = Tipo::orderBy('nombre')->get();
 
-        return view('pedido.create', compact('pedido', 'lugares'));
+        return view('pedido.create', compact('pedido', 'lugares', 'tipos'));
     }
 
     /**
@@ -39,7 +41,13 @@ class PedidoController extends Controller
      */
     public function store(PedidoRequest $request): RedirectResponse
     {
-        Pedido::create($request->validated());
+        $pedido = Pedido::create($request->validated());
+
+        if ($request->has('articulos')) {
+            foreach ($request->articulos as $item) {
+                $pedido->articulosPedidos()->create($item);
+            }
+        }
 
         return Redirect::route('pedidos.index')
             ->with('success', 'Pedido created successfully.');
@@ -62,8 +70,10 @@ class PedidoController extends Controller
     {
         $pedido = Pedido::find($id);
         $lugares = Lugare::orderBy('nombre')->get();
+        $tipos = Tipo::orderBy('nombre')->get();
+        $pedido->load('articulosPedidos');
 
-        return view('pedido.edit', compact('pedido', 'lugares'));
+        return view('pedido.edit', compact('pedido', 'lugares', 'tipos'));
     }
 
     /**
@@ -72,6 +82,13 @@ class PedidoController extends Controller
     public function update(PedidoRequest $request, Pedido $pedido): RedirectResponse
     {
         $pedido->update($request->validated());
+
+        $pedido->articulosPedidos()->delete();
+        if ($request->has('articulos')) {
+            foreach ($request->articulos as $item) {
+                $pedido->articulosPedidos()->create($item);
+            }
+        }
 
         return Redirect::route('pedidos.index')
             ->with('success', 'Pedido updated successfully');

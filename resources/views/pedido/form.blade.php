@@ -1,4 +1,4 @@
-<div class="row padding-1 p-1">
+﻿<div class="row padding-1 p-1">
     <div class="col-md-12">
         <div class="row">
             <div class="col">
@@ -95,6 +95,72 @@
             </div>
         </div>
 
+        <hr>
+        <h5>Artículos del Pedido</h5>
+        <div class="table-responsive">
+            <table class="table table-sm table-bordered" id="tabla-articulos">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Color</th>
+                        <th>Cantidad</th>
+                        <th>Tipo</th>
+                        <th style="width:80px; text-align:center; vertical-align:middle;">
+                            <button type="button" class="btn btn-success btn-sm" onclick="agregarArticulo()">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="tbody-articulos">
+                    @if (isset($pedido->articulosPedidos) && $pedido->articulosPedidos->count() > 0)
+                        @foreach ($pedido->articulosPedidos as $i => $art)
+                            <tr>
+                                <td><input type="text" name="articulos[{{ $i }}][nombre]" class="form-control" value="{{ $art->nombre }}"></td>
+                                <td><input type="text" name="articulos[{{ $i }}][color]" class="form-control" value="{{ $art->color }}"></td>
+                                <td><input type="number" name="articulos[{{ $i }}][cantidad]" class="form-control" value="{{ $art->cantidad }}"></td>
+                                <td>
+                                    <select name="articulos[{{ $i }}][tipo_id]" class="form-control">
+                                        <option value="">Seleccione</option>
+                                        @foreach ($tipos as $tipo)
+                                            <option value="{{ $tipo->id }}" {{ $art->tipo_id == $tipo->id ? 'selected' : '' }}>{{ $tipo->nombre }}</option>
+                                        @endforeach
+                                    </select>
+                                </td>
+                                <td style="text-align:center; vertical-align:middle;">
+                                    <button type="button" class="btn btn-danger btn-sm" onclick="eliminarArticulo(this)">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Template oculto para nueva fila -->
+        <template id="template-articulo">
+            <tr>
+                <td><input type="text" name="articulos[__INDEX__][nombre]" class="form-control" placeholder="Nombre"></td>
+                <td><input type="text" name="articulos[__INDEX__][color]" class="form-control" placeholder="Color"></td>
+                <td><input type="number" name="articulos[__INDEX__][cantidad]" class="form-control" placeholder="0"></td>
+                <td>
+                    <select name="articulos[__INDEX__][tipo_id]" class="form-control">
+                        <option value="">Seleccione</option>
+                        @foreach ($tipos as $tipo)
+                            <option value="{{ $tipo->id }}">{{ $tipo->nombre }}</option>
+                        @endforeach
+                    </select>
+                </td>
+                <td style="text-align:center; vertical-align:middle;">
+                    <button type="button" class="btn btn-danger btn-sm" onclick="eliminarArticulo(this)">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        </template>
+
     </div>
 </div>
 <br>
@@ -105,7 +171,7 @@
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         var input = document.getElementById('fecha_hora_entrega');
         if (input && !input.value) {
             var now = new Date();
@@ -117,4 +183,23 @@
             input.value = year + '-' + month + '-' + day + 'T' + hours + ':' + minutes;
         }
     });
+
+    var articuloIndex = {{ isset($pedido->articulosPedidos) ? $pedido->articulosPedidos->count() : 0 }};
+
+    function agregarArticulo() {
+        var template = document.getElementById('template-articulo');
+        var tbody = document.getElementById('tbody-articulos');
+        var html = template.innerHTML.replace(/__INDEX__/g, articuloIndex);
+        var tr = document.createElement('tr');
+        tr.innerHTML = html;
+        tbody.appendChild(tr);
+        articuloIndex++;
+    }
+
+    function eliminarArticulo(btn) {
+        var tr = btn.closest('tr');
+        if (tr) {
+            tr.remove();
+        }
+    }
 </script>

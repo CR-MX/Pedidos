@@ -29,6 +29,11 @@ class PedidoRequest extends FormRequest
 			'fecha_hora_entrega' => 'required',
 			'lugar_id' => 'required',
 			'informacion_adicional' => 'required|string',
+			'articulos' => 'nullable|array',
+			'articulos.*.nombre' => 'required|string',
+			'articulos.*.color' => 'required|string',
+			'articulos.*.cantidad' => 'required|integer',
+			'articulos.*.tipo_id' => 'required|integer',
         ];
     }
 }
