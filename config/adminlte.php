@@ -318,42 +318,51 @@ return [
         
         ['header' => 'Menú'],
         [
-            'text' => 'Credenciales',
-            'icon' => 'fas fa-id-card',
+            'text' => 'Pedidos',
+            'icon' => 'fas fa-clipboard-list',
             'submenu' => [
                 [
-                    'text' => 'Agregar nuevo',
-                    'url' => 'credenciales/create',
+                    'text' => 'Agregar',
+                    'route' => 'pedidos.create',
                     'icon' => 'fas fa-plus',
                 ],
                 [
-                    'text' => 'Ver todos',
-                    'url' => 'credenciales',
+                    'text' => 'Ver todo',
+                    'route' => 'pedidos.index',
                     'icon' => 'fa fa-list',
                 ],
             ],
         ],
         [
-            'text' => 'Catálogos',
-            'icon' => 'fas fa-book',
+            'text' => 'Tipos',
+            'icon' => 'fas fa-tag',
             'submenu' => [
                 [
-                    'text' => 'Oficinas Emisoras',
-                    'icon' => 'fas fa-building',
-                    'submenu' => [
-                        [
-                            'text' => 'Agregar',
-                            'url' => 'oficinas-emisoras/create',
-                            'icon' => 'fas fa-plus',
-                        ],
-                        [
-                            'text' => 'Ver',
-                            'url' => 'oficinas-emisoras',
-                            'icon' => 'fa fa-list',
-                        ],
-                    ],
+                    'text' => 'Agregar',
+                    'route' => 'tipos.create',
+                    'icon' => 'fas fa-plus',
                 ],
-                                       
+                [
+                    'text' => 'Ver todo',
+                    'route' => 'tipos.index',
+                    'icon' => 'fa fa-list',
+                ],
+            ],
+        ],
+        [
+            'text' => 'Lugares',
+            'icon' => 'fas fa-map-marker-alt',
+            'submenu' => [
+                [
+                    'text' => 'Agregar',
+                    'route' => 'lugares.create',
+                    'icon' => 'fas fa-plus',
+                ],
+                [
+                    'text' => 'Ver todo',
+                    'route' => 'lugares.index',
+                    'icon' => 'fa fa-list',
+                ],
             ],
         ],
     ],
