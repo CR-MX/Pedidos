@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('pedidos', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->string('red_social');
+            $table->string('red_social')->nullable();
             $table->decimal('anticipo', 10, 2);
             $table->decimal('total', 10, 2);
             $table->datetime('fecha_hora_entrega');
             $table->foreignId('lugar_id')->constrained('lugares')->onDelete('cascade');
-            $table->text('informacion_adicional');
+            $table->text('informacion_adicional')->nullable();
 
             
 

@@ -15,6 +15,7 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
     Route::redirect('/', '/home');
     Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('pedidos-por-fecha', [PedidoController::class, 'porFecha'])->name('pedidos.por-fecha');
     Route::resource('pedidos', PedidoController::class);
     Route::resource('articulos-pedidos', ArticulosPedidoController::class);
     Route::resource('tipos', TipoController::class);

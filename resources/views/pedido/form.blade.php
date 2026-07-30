@@ -1,5 +1,20 @@
 ﻿<div class="row padding-1 p-1">
     <div class="col-md-12">
+
+        @if ($errors->any())
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Error:</strong>
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+
         <div class="row">
             <div class="col">
                 <div class="form-group mb-2 mb20">
@@ -81,6 +96,26 @@
             </div>
         </div>
 
+        <div id="pedidos-misma-fecha" class="row" style="display:none;">
+            <div class="col">
+                <div class="form-group mb-2 mb20">
+                    <label>Pedidos del día</label>
+                    <div class="table-responsive">
+                        <table class="table  table-sm table-striped table-bordered">
+                            <thead>
+                                <tr class="table-primary">
+                                    <th>Nombre</th>
+                                    <th>Lugar</th>
+                                    <th>Hora</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-misma-fecha"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col">
                 <div class="form-group mb-2 mb20">
@@ -98,9 +133,9 @@
         <hr>
         <h5>Artículos del Pedido</h5>
         <div class="table-responsive">
-            <table class="table table-sm table-bordered" id="tabla-articulos">
+            <table class="table table-sm table-striped table-bordered" id="tabla-articulos">
                 <thead>
-                    <tr>
+                    <tr class="table-success">
                         <th>Nombre</th>
                         <th>Color</th>
                         <th>Cantidad</th>
@@ -185,16 +220,65 @@
 </div>
 
 <script>
+    var pedidoActualId = {{ $pedido->id ?? 'null' }};
+
+    function formatearHora(iso) {
+        if (!iso) return '';
+        var d = new Date(iso.replace(' ', 'T') + 'Z');
+        var hours = d.getHours();
+        var minutes = String(d.getMinutes()).padStart(2, '0');
+        var ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12 || 12;
+        return hours + ':' + minutes + ' ' + ampm;
+    }
+
+    function cargarPedidosMismaFecha() {
+        var input = document.getElementById('fecha_hora_entrega');
+        var container = document.getElementById('pedidos-misma-fecha');
+        var tbody = document.getElementById('tbody-misma-fecha');
+
+        if (!input || !input.value) {
+            container.style.display = 'none';
+            return;
+        }
+
+        var date = input.value.split('T')[0];
+        var url = '/pedidos-por-fecha?date=' + date;
+        if (pedidoActualId) url += '&exclude=' + pedidoActualId;
+
+        fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+            .then(function (r) { return r.json(); })
+            .then(function (data) {
+                tbody.innerHTML = '';
+                if (data.length === 0) {
+                    container.style.display = 'none';
+                    return;
+                }
+                data.forEach(function (p) {
+                    var tr = document.createElement('tr');
+                    tr.innerHTML = '<td>' + p.nombre + '</td>' +
+                        '<td>' + (p.lugar || '') + '</td>' +
+                        '<td>' + formatearHora(p.fecha_hora_entrega) + '</td>';
+                    tbody.appendChild(tr);
+                });
+                container.style.display = '';
+            });
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
         var input = document.getElementById('fecha_hora_entrega');
-        if (input && !input.value) {
-            var now = new Date();
-            var year = now.getFullYear();
-            var month = String(now.getMonth() + 1).padStart(2, '0');
-            var day = String(now.getDate()).padStart(2, '0');
-            var hours = String(now.getHours()).padStart(2, '0');
-            var minutes = String(now.getMinutes()).padStart(2, '0');
-            input.value = year + '-' + month + '-' + day + 'T' + hours + ':' + minutes;
+        if (input) {
+            if (!input.value) {
+                var now = new Date();
+                var year = now.getFullYear();
+                var month = String(now.getMonth() + 1).padStart(2, '0');
+                var day = String(now.getDate()).padStart(2, '0');
+                var hours = String(now.getHours()).padStart(2, '0');
+                var minutes = String(now.getMinutes()).padStart(2, '0');
+                input.value = year + '-' + month + '-' + day + 'T' + hours + ':' + minutes;
+            }
+            input.addEventListener('change', cargarPedidosMismaFecha);
+            cargarPedidosMismaFecha();
         }
     });
 

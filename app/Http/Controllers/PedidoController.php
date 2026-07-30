@@ -8,6 +8,7 @@ use App\Models\Tipo;
 use App\Models\Color;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use App\Http\Requests\PedidoRequest;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
@@ -95,6 +96,29 @@ class PedidoController extends Controller
 
         return Redirect::route('pedidos.index')
             ->with('success', 'Pedido updated successfully');
+    }
+
+    public function porFecha(Request $request): JsonResponse
+    {
+        $date = $request->query('date');
+
+        $query = Pedido::with('lugare')
+            ->whereDate('fecha_hora_entrega', $date);
+
+        if ($request->has('exclude')) {
+            $query->where('id', '!=', $request->query('exclude'));
+        }
+
+        $pedidos = $query->get()->map(function ($p) {
+            return [
+                'id' => $p->id,
+                'nombre' => $p->nombre,
+                'lugar' => $p->lugare?->nombre,
+                'fecha_hora_entrega' => $p->fecha_hora_entrega,
+            ];
+        });
+
+        return response()->json($pedidos);
     }
 
     public function destroy($id): RedirectResponse
