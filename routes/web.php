@@ -7,6 +7,7 @@ use App\Http\Controllers\PedidoController;
 use App\Http\Controllers\ArticulosPedidoController;
 use App\Http\Controllers\TipoController;
 use App\Http\Controllers\LugareController;
+use App\Http\Controllers\ColorController;
 
 
 Auth::routes();
@@ -18,4 +19,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('articulos-pedidos', ArticulosPedidoController::class);
     Route::resource('tipos', TipoController::class);
     Route::resource('lugares', LugareController::class);
+    Route::resource('colores', ColorController::class);
 });

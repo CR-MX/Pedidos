@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pedido;
 use App\Models\Lugare;
 use App\Models\Tipo;
+use App\Models\Color;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\PedidoRequest;
@@ -32,8 +33,9 @@ class PedidoController extends Controller
         $pedido = new Pedido();
         $lugares = Lugare::orderBy('nombre')->get();
         $tipos = Tipo::orderBy('nombre')->get();
+        $colores = Color::orderBy('nombre')->get();
 
-        return view('pedido.create', compact('pedido', 'lugares', 'tipos'));
+        return view('pedido.create', compact('pedido', 'lugares', 'tipos', 'colores'));
     }
 
     /**
@@ -71,9 +73,10 @@ class PedidoController extends Controller
         $pedido = Pedido::find($id);
         $lugares = Lugare::orderBy('nombre')->get();
         $tipos = Tipo::orderBy('nombre')->get();
+        $colores = Color::orderBy('nombre')->get();
         $pedido->load('articulosPedidos');
 
-        return view('pedido.edit', compact('pedido', 'lugares', 'tipos'));
+        return view('pedido.edit', compact('pedido', 'lugares', 'tipos', 'colores'));
     }
 
     /**

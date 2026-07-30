@@ -86,6 +86,8 @@
                     <th></th>
                     <th></th>
                     <th></th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -111,6 +113,10 @@
                         <td>{{ \Carbon\Carbon::parse($pedido->fecha_hora_entrega)->format('d/m/Y h:i A') }}</td>
                         <td>{{ $pedido->lugar_nombre ?? '' }}</td>
                         <td>
+                            <button type="button" class="btn btn-sm btn-info" title="Ver artículos"
+                                wire:click="verArticulos({{ $pedido->id }})">
+                                <i class="fas fa-box"></i>
+                            </button>
                             <form action="{{ route('pedidos.destroy', $pedido->id) }}" method="POST">
                                 <a class="btn btn-sm btn-success" title="Actualizar"
                                     href="{{ route('pedidos.edit', $pedido->id) }}"><i
@@ -127,4 +133,41 @@
         </table>
     </div>
     {!! $registros->withQueryString()->links() !!}
+
+    @if ($selectedPedidoId)
+        <div class="modal" style="display:block; background:rgba(0,0,0,0.5); position:fixed; top:0; left:0; width:100%; height:100%; z-index:9999;">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5>Artículos del Pedido</h5>
+                        <button type="button" class="close" wire:click="cerrarModal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <table class="table table-sm table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Color</th>
+                                    <th>Cantidad</th>
+                                    <th>Tipo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($articulos as $art)
+                                    <tr>
+                                        <td>{{ $art->nombre }}</td>
+                                        <td>{{ $art->color }}</td>
+                                        <td>{{ $art->cantidad }}</td>
+                                        <td>{{ $art->tipo_nombre }}</td>
+                                    </tr>
+                                @empty
+                                    <tr><td colspan="4" class="text-center">Sin artículos</td></tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 </div>

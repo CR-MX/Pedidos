@@ -19,6 +19,25 @@ class TablePedido extends Component
     public $search_nombre = '';
     public $search_red_social = '';
 
+    public $selectedPedidoId = null;
+    public $articulos = [];
+
+    public function verArticulos($pedidoId)
+    {
+        $this->selectedPedidoId = $pedidoId;
+        $this->articulos = DB::table('articulos_pedidos')
+            ->leftJoin('tipos', 'articulos_pedidos.tipo_id', '=', 'tipos.id')
+            ->select('articulos_pedidos.*', 'tipos.nombre as tipo_nombre')
+            ->where('articulos_pedidos.pedido_id', $pedidoId)
+            ->get();
+    }
+
+    public function cerrarModal()
+    {
+        $this->selectedPedidoId = null;
+        $this->articulos = [];
+    }
+
     public function render()
     {
         $query = DB::table('pedidos')

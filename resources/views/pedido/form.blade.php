@@ -117,7 +117,14 @@
                         @foreach ($pedido->articulosPedidos as $i => $art)
                             <tr>
                                 <td><input type="text" name="articulos[{{ $i }}][nombre]" class="form-control" value="{{ $art->nombre }}"></td>
-                                <td><input type="text" name="articulos[{{ $i }}][color]" class="form-control" value="{{ $art->color }}"></td>
+                                <td>
+                                    <select name="articulos[{{ $i }}][color]" class="form-control">
+                                        <option value="">Seleccione</option>
+                                        @foreach ($colores as $color)
+                                            <option value="{{ $color->nombre }}" {{ $art->color == $color->nombre ? 'selected' : '' }}>{{ $color->nombre }}</option>
+                                        @endforeach
+                                    </select>
+                                </td>
                                 <td><input type="number" name="articulos[{{ $i }}][cantidad]" class="form-control" value="{{ $art->cantidad }}"></td>
                                 <td>
                                     <select name="articulos[{{ $i }}][tipo_id]" class="form-control">
@@ -143,7 +150,14 @@
         <template id="template-articulo">
             <tr>
                 <td><input type="text" name="articulos[__INDEX__][nombre]" class="form-control" placeholder="Nombre"></td>
-                <td><input type="text" name="articulos[__INDEX__][color]" class="form-control" placeholder="Color"></td>
+                <td>
+                    <select name="articulos[__INDEX__][color]" class="form-control">
+                        <option value="">Seleccione</option>
+                        @foreach ($colores as $color)
+                            <option value="{{ $color->nombre }}">{{ $color->nombre }}</option>
+                        @endforeach
+                    </select>
+                </td>
                 <td><input type="number" name="articulos[__INDEX__][cantidad]" class="form-control" placeholder="0"></td>
                 <td>
                     <select name="articulos[__INDEX__][tipo_id]" class="form-control">

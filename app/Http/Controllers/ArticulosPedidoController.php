@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ArticulosPedido;
+use App\Models\Color;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\ArticulosPedidoRequest;
@@ -28,8 +29,9 @@ class ArticulosPedidoController extends Controller
     public function create(): View
     {
         $articulosPedido = new ArticulosPedido();
+        $colores = Color::orderBy('nombre')->get();
 
-        return view('articulos-pedido.create', compact('articulosPedido'));
+        return view('articulos-pedido.create', compact('articulosPedido', 'colores'));
     }
 
     /**
@@ -59,8 +61,9 @@ class ArticulosPedidoController extends Controller
     public function edit($id): View
     {
         $articulosPedido = ArticulosPedido::find($id);
+        $colores = Color::orderBy('nombre')->get();
 
-        return view('articulos-pedido.edit', compact('articulosPedido'));
+        return view('articulos-pedido.edit', compact('articulosPedido', 'colores'));
     }
 
     /**

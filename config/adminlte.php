@@ -365,6 +365,22 @@ return [
                 ],
             ],
         ],
+        [
+            'text' => 'Colores',
+            'icon' => 'fas fa-palette',
+            'submenu' => [
+                [
+                    'text' => 'Agregar',
+                    'route' => 'colores.create',
+                    'icon' => 'fas fa-plus',
+                ],
+                [
+                    'text' => 'Ver todo',
+                    'route' => 'colores.index',
+                    'icon' => 'fa fa-list',
+                ],
+            ],
+        ],
     ],
 
     /*
