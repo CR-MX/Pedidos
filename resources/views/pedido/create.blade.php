@@ -1,22 +1,23 @@
-@extends('adminlte::page')
+@extends('layouts.app')
 
-@section('title', 'Agregar Oficina Emisora')
+@section('template_title')
+    {{ __('Create') }} Pedido
+@endsection
 
 @section('content')
-<br>
     <section class="content container-fluid">
         <div class="row">
             <div class="col-md-12">
 
                 <div class="card card-default">
-                    <div class="card-header color-header">
-                        <span class="card-title">Agregar Oficina Emisora</span>
+                    <div class="card-header">
+                        <span class="card-title">{{ __('Create') }} Pedido</span>
                     </div>
                     <div class="card-body bg-white">
-                        <form method="POST" action="{{ route('oficinas-emisoras.store') }}"  role="form" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('pedidos.store') }}"  role="form" enctype="multipart/form-data">
                             @csrf
 
-                            @include('oficinas-emisora.form')
+                            @include('pedido.form')
 
                         </form>
                     </div>

@@ -9,14 +9,12 @@ class OficinaEmisoraSeeder extends Seeder
 {
     public function run(): void
     {
-        $oficinas = [
-            ['nombre' => 'Culiacán'],
-            ['nombre' => 'Mazatlán'],
-            ['nombre' => 'Los Mochis'],
-            ['nombre' => 'Guasave'],
-            ['nombre' => 'Escuinapa'],
+        $lugares = [
+            ['nombre' => 'Jardin Juarez'],
+            ['nombre' => 'Plaza futura'],
+            ['nombre' => 'Mercado Soriana'],
         ];
 
-        DB::table('oficinas_emisoras')->insert($oficinas);
+        DB::table('lugares')->insert($lugares);
     }
 }
