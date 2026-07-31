@@ -60,7 +60,7 @@ th input {
 }
 
 .color-header {
-    background-color: #7a7a7a;
+    background-color: #24514F;
     color: #eee;
     font-size: large;
 }
@@ -96,14 +96,14 @@ th input {
 }
 .sidebar-dark-primary .nav-sidebar > .nav-item > .nav-link.active,
 .sidebar-light-primary .nav-sidebar > .nav-item > .nav-link.active {
-    background-color: #0060c8;
-    color: #fff;
+    background-color: #58A187;
+    color: #eee;
 }
 .nav-treeview > .nav-item > .nav-link.active,
 [class*="sidebar-dark-"] .nav-treeview > .nav-item > .nav-link.active:focus,
 [class*="sidebar-dark-"] .nav-treeview > .nav-item > .nav-link.active:hover {
-    background-color: rgb(255 255 255 / 85%);
-    color: #343a40;
+    background-color: #7FC2A5;
+    color: #24514F;
 }
 
 /** buton orange btn */
@@ -130,5 +130,10 @@ th input {
 
 .editando-campo{
     border: 3px solid #007bff !important;
+}
+
+/* Fondo del sidebar */
+.main-sidebar {
+    background-color: #24514F;
 }
 

@@ -198,7 +198,7 @@ return [
     'classes_content' => '',
     'classes_sidebar' => 'sidebar-dark-primary elevation-4',
     'classes_sidebar_nav' => 'nav-child-indent',
-    'classes_topnav' => 'navbar-white navbar-light',
+    'classes_topnav' => 'navbar-dark navbar-gray-dark',
     'classes_topnav_nav' => 'navbar-expand',
     'classes_topnav_container' => 'container',
 
@@ -499,7 +499,7 @@ return [
                 [
                     'type' => 'css',
                     'asset' => true,
-                    'location' => '/css/general.css',
+                    'location' => '/css/general.css?v=3',
                 ],
                 [
                     'type' => 'js',
