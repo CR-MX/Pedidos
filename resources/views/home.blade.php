@@ -140,7 +140,7 @@
                         type: 'linear',
                         position: 'left',
                         scaleLabel: { display: true, labelString: 'Pedidos', fontSize: 11 },
-                        ticks: { beginAtZero: true, stepSize: 1, fontColor: '#333', fontSize: 10 }
+                        ticks: { beginAtZero: true, stepSize: 5, fontColor: '#333', fontSize: 10 }
                     }
                 ]
             }
