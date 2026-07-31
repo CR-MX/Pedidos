@@ -21,7 +21,7 @@
                     <div class="card-body bg-white">
                         
                                 <div class="form-group mb-2 mb20">
-                                    <strong>Pedido Id:</strong>
+                                    <strong>ID Pedido:</strong>
                                     {{ $articulosPedido->pedido_id }}
                                 </div>
                                 <div class="form-group mb-2 mb20">
@@ -37,7 +37,7 @@
                                     {{ $articulosPedido->cantidad }}
                                 </div>
                                 <div class="form-group mb-2 mb20">
-                                    <strong>Tipo Id:</strong>
+                                    <strong>ID Tipo:</strong>
                                     {{ $articulosPedido->tipo_id }}
                                 </div>
 

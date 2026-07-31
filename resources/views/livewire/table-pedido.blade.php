@@ -73,6 +73,7 @@
                     <th>Por Cobrar</th>
                     <th>Días Rest.</th>
                     <th>Fecha Entrega</th>
+                    <th>Entrega</th>
                     <th>Lugar</th>
                     <th>Acciones</th>
                 </tr>
@@ -88,6 +89,7 @@
                     <th></th>
                     <th></th>
                     <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -97,20 +99,39 @@
                         <td class="texto-limitado">{{ $pedido->nombre ?? '' }}</td>
                         <td>{{ $pedido->red_social ?? '' }}</td>
                         <td>${{ number_format($pedido->anticipo ?? 0, 2) }}</td>
-                        <td>${{ number_format($pedido->por_cobrar ?? 0, 2) }}</td>
                         <td>
-                            @php
-                                $dias = $pedido->dias_restantes ?? 999;
-                            @endphp
-                            @if ($dias >= 6)
-                                <span class="badge bg-success" style="font-size:1rem; padding:8px 12px;">{{ $dias }} días</span>
-                            @elseif ($dias >= 3)
-                                <span class="badge bg-warning text-dark" style="font-size:1rem; padding:8px 12px;">{{ $dias }} días</span>
+                            @if ($pedido->por_cobrar > 0)
+                                ${{ number_format($pedido->por_cobrar ?? 0, 2) }}
                             @else
-                                <span class="badge bg-danger" style="font-size:1rem; padding:8px 12px;">{{ $dias }} días</span>
+                                <span class="badge bg-success" style="font-size:1rem; padding:8px 12px;">Pagado</span>
                             @endif
                         </td>
-                        <td>{{ \Carbon\Carbon::parse($pedido->fecha_hora_entrega)->format('d/m/Y h:i A') }}</td>
+                        <td>
+                            @if ($pedido->fecha_hora_entrega)
+                                @php
+                                    $dias = $pedido->dias_restantes ?? 999;
+                                @endphp
+                                @if ($dias >= 6)
+                                    <span class="badge bg-success" style="font-size:1rem; padding:8px 12px;">{{ $dias }} días</span>
+                                @elseif ($dias >= 3)
+                                    <span class="badge bg-warning text-dark" style="font-size:1rem; padding:8px 12px;">{{ $dias }} días</span>
+                                @else
+                                    <span class="badge bg-danger" style="font-size:1rem; padding:8px 12px;">{{ $dias }} días</span>
+                                @endif
+                            @else
+                                <span class="badge bg-secondary" style="font-size:1rem; padding:8px 12px;">Pendiente</span>
+                            @endif
+                        </td>
+                        <td>{{ $pedido->fecha_hora_entrega ? \Carbon\Carbon::parse($pedido->fecha_hora_entrega)->format('d/m/Y h:i A') : '—' }}</td>
+                        <td style="white-space: nowrap;">
+                            @if (($pedido->entrega ?? 'pendiente') === 'entregado')
+                                <span class="badge bg-success" style="font-size:1rem; padding:8px 12px;">Entregado</span>
+                            @else
+                                <button type="button" class="badge bg-warning text-dark border-0" title="Confirmar entrega"
+                                    style="font-size:1rem; padding:8px 12px; cursor:pointer;"
+                                    onclick="confirmarEntrega({{ $pedido->id }})">Pendiente</button>
+                            @endif
+                        </td>
                         <td>{{ $pedido->lugar_nombre ?? '' }}</td>
                         <td style="white-space: nowrap;">
                             <button type="button" class="btn btn-sm btn-info" title="Ver artículos"
@@ -170,4 +191,33 @@
             </div>
         </div>
     @endif
+
+    <script>
+        function confirmarEntrega(id) {
+            Swal.fire({
+                title: '¿Confirmar entrega?',
+                text: 'Marcar este pedido como entregado',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#28a745',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Sí, entregado',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    @this.call('confirmarEntrega', id);
+                }
+            });
+        }
+
+        Livewire.on('pedido-entregado', function () {
+            Swal.fire({
+                icon: 'success',
+                title: 'Entregado',
+                text: 'El pedido se marcó como entregado',
+                confirmButtonColor: '#28a745',
+                confirmButtonText: 'Aceptar'
+            });
+        });
+    </script>
 </div>

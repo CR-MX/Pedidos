@@ -40,7 +40,7 @@ class TipoController extends Controller
         Tipo::create($request->validated());
 
         return Redirect::route('tipos.index')
-            ->with('success', 'Tipo created successfully.');
+            ->with('success', 'Tipo creado exitosamente.');
     }
 
     /**
@@ -71,7 +71,7 @@ class TipoController extends Controller
         $tipo->update($request->validated());
 
         return Redirect::route('tipos.index')
-            ->with('success', 'Tipo updated successfully');
+            ->with('success', 'Tipo actualizado exitosamente');
     }
 
     public function destroy($id): RedirectResponse
@@ -79,6 +79,6 @@ class TipoController extends Controller
         Tipo::find($id)->delete();
 
         return Redirect::route('tipos.index')
-            ->with('success', 'Tipo deleted successfully');
+            ->with('success', 'Tipo eliminado exitosamente');
     }
 }

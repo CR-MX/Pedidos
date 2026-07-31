@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('template_title')
-    Articulos Pedidos
+    Artículos de Pedido
 @endsection
 
 @section('content')
@@ -36,11 +36,11 @@
                                     <tr>
                                         <th>No</th>
                                         
-									<th >Pedido Id</th>
+									<th >ID Pedido</th>
 									<th >Nombre</th>
 									<th >Color</th>
 									<th >Cantidad</th>
-									<th >Tipo Id</th>
+									<th >ID Tipo</th>
 
                                         <th></th>
                                     </tr>
@@ -62,7 +62,7 @@
                                                     <a class="btn btn-sm btn-success" href="{{ route('articulos-pedidos.edit', $articulosPedido->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="event.preventDefault(); confirm('Are you sure to delete?') ? this.closest('form').submit() : false;"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="event.preventDefault(); confirm('¿Está seguro de eliminar?') ? this.closest('form').submit() : false;"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
                                                 </form>
                                             </td>
                                         </tr>

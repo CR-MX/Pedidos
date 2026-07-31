@@ -3,7 +3,7 @@
         
         <div class="form-group mb-2 mb20">
             <label for="pedido_id" class="form-label">{{ __('Pedido Id') }}</label>
-            <input type="text" name="pedido_id" class="form-control @error('pedido_id') is-invalid @enderror" value="{{ old('pedido_id', $articulosPedido?->pedido_id) }}" id="pedido_id" placeholder="Pedido Id">
+            <input type="text" name="pedido_id" class="form-control @error('pedido_id') is-invalid @enderror" value="{{ old('pedido_id', $articulosPedido?->pedido_id) }}" id="pedido_id" placeholder="ID Pedido">
             {!! $errors->first('pedido_id', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
         <div class="form-group mb-2 mb20">
@@ -28,7 +28,7 @@
         </div>
         <div class="form-group mb-2 mb20">
             <label for="tipo_id" class="form-label">{{ __('Tipo Id') }}</label>
-            <input type="text" name="tipo_id" class="form-control @error('tipo_id') is-invalid @enderror" value="{{ old('tipo_id', $articulosPedido?->tipo_id) }}" id="tipo_id" placeholder="Tipo Id">
+            <input type="text" name="tipo_id" class="form-control @error('tipo_id') is-invalid @enderror" value="{{ old('tipo_id', $articulosPedido?->tipo_id) }}" id="tipo_id" placeholder="ID Tipo">
             {!! $errors->first('tipo_id', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
         </div>
 

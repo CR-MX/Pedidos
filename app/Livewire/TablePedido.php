@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
+use App\Models\Pedido;
 
 class TablePedido extends Component
 {
@@ -38,6 +39,12 @@ class TablePedido extends Component
         $this->articulos = [];
     }
 
+    public function confirmarEntrega($pedidoId)
+    {
+        Pedido::where('id', $pedidoId)->update(['entrega' => 'entregado']);
+        $this->dispatch('pedido-entregado');
+    }
+
     public function render()
     {
         $query = DB::table('pedidos')
@@ -52,6 +59,7 @@ class TablePedido extends Component
                 'pedidos.fecha_hora_entrega',
                 'pedidos.lugar_id',
                 'pedidos.informacion_adicional',
+                'pedidos.entrega',
                 'lugares.nombre as lugar_nombre',
             )
             ->when($this->search_nombre, function ($param) {

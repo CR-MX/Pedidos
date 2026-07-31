@@ -33,15 +33,23 @@
                                     {{ $pedido->anticipo }}
                                 </div>
                                 <div class="form-group mb-2 mb20">
-                                    <strong>Fecha Hora Entrega:</strong>
+                                    <strong>Total:</strong>
+                                    {{ $pedido->total }}
+                                </div>
+                                <div class="form-group mb-2 mb20">
+                                    <strong>Fecha y Hora de Entrega:</strong>
                                     {{ $pedido->fecha_hora_entrega }}
                                 </div>
                                 <div class="form-group mb-2 mb20">
-                                    <strong>Lugar Id:</strong>
+                                    <strong>Lugar:</strong>
                                     {{ $pedido->lugar_id }}
                                 </div>
                                 <div class="form-group mb-2 mb20">
-                                    <strong>Informacion Adicional:</strong>
+                                    <strong>Entrega:</strong>
+                                    {{ ucfirst($pedido->entrega ?? 'pendiente') }}
+                                </div>
+                                <div class="form-group mb-2 mb20">
+                                    <strong>Información Adicional:</strong>
                                     {{ $pedido->informacion_adicional }}
                                 </div>
 

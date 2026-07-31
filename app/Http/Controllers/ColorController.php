@@ -31,7 +31,7 @@ class ColorController extends Controller
         Color::create($request->validated());
 
         return Redirect::route('colores.index')
-            ->with('success', 'Color created successfully.');
+            ->with('success', 'Color creado exitosamente.');
     }
 
     public function show($id): View
@@ -53,7 +53,7 @@ class ColorController extends Controller
         $color->update($request->validated());
 
         return Redirect::route('colores.index')
-            ->with('success', 'Color updated successfully');
+            ->with('success', 'Color actualizado exitosamente');
     }
 
     public function destroy($id): RedirectResponse
@@ -61,6 +61,6 @@ class ColorController extends Controller
         Color::find($id)->delete();
 
         return Redirect::route('colores.index')
-            ->with('success', 'Color deleted successfully');
+            ->with('success', 'Color eliminado exitosamente');
     }
 }

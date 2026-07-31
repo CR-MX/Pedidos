@@ -42,7 +42,7 @@ class ArticulosPedidoController extends Controller
         ArticulosPedido::create($request->validated());
 
         return Redirect::route('articulos-pedidos.index')
-            ->with('success', 'ArticulosPedido created successfully.');
+            ->with('success', 'Artículo creado exitosamente.');
     }
 
     /**
@@ -74,7 +74,7 @@ class ArticulosPedidoController extends Controller
         $articulosPedido->update($request->validated());
 
         return Redirect::route('articulos-pedidos.index')
-            ->with('success', 'ArticulosPedido updated successfully');
+            ->with('success', 'Artículo actualizado exitosamente');
     }
 
     public function destroy($id): RedirectResponse
@@ -82,6 +82,6 @@ class ArticulosPedidoController extends Controller
         ArticulosPedido::find($id)->delete();
 
         return Redirect::route('articulos-pedidos.index')
-            ->with('success', 'ArticulosPedido deleted successfully');
+            ->with('success', 'Artículo eliminado exitosamente');
     }
 }

@@ -40,7 +40,7 @@ class LugareController extends Controller
         Lugare::create($request->validated());
 
         return Redirect::route('lugares.index')
-            ->with('success', 'Lugare created successfully.');
+            ->with('success', 'Lugar creado exitosamente.');
     }
 
     /**
@@ -71,7 +71,7 @@ class LugareController extends Controller
         $lugare->update($request->validated());
 
         return Redirect::route('lugares.index')
-            ->with('success', 'Lugare updated successfully');
+            ->with('success', 'Lugar actualizado exitosamente');
     }
 
     public function destroy($id): RedirectResponse
@@ -79,6 +79,6 @@ class LugareController extends Controller
         Lugare::find($id)->delete();
 
         return Redirect::route('lugares.index')
-            ->with('success', 'Lugare deleted successfully');
+            ->with('success', 'Lugar eliminado exitosamente');
     }
 }

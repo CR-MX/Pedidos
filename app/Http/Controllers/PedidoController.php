@@ -55,7 +55,7 @@ class PedidoController extends Controller
         }
 
         return Redirect::route('pedidos.index')
-            ->with('success', 'Pedido created successfully.');
+            ->with('success', 'Pedido creado exitosamente.');
     }
 
     /**
@@ -97,7 +97,7 @@ class PedidoController extends Controller
         }
 
         return Redirect::route('pedidos.index')
-            ->with('success', 'Pedido updated successfully');
+            ->with('success', 'Pedido actualizado exitosamente');
     }
 
     public function porFecha(Request $request): JsonResponse
@@ -148,6 +148,6 @@ class PedidoController extends Controller
         Pedido::find($id)->delete();
 
         return Redirect::route('pedidos.index')
-            ->with('success', 'Pedido deleted successfully');
+            ->with('success', 'Pedido eliminado exitosamente');
     }
 }

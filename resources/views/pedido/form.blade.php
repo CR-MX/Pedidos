@@ -94,6 +94,16 @@
                     {!! $errors->first('lugar_id', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
                 </div>
             </div>
+            <div class="col">
+                <div class="form-group mb-2 mb20">
+                    <label for="entrega" class="form-label">{{ __('Entrega') }}</label>
+                    <select name="entrega" class="form-control @error('entrega') is-invalid @enderror" id="entrega">
+                        <option value="pendiente" {{ old('entrega', $pedido?->entrega) == 'pendiente' ? 'selected' : '' }}>Pendiente</option>
+                        <option value="entregado" {{ old('entrega', $pedido?->entrega) == 'entregado' ? 'selected' : '' }}>Entregado</option>
+                    </select>
+                    {!! $errors->first('entrega', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+                </div>
+            </div>
         </div>
 
         <div id="pedidos-misma-fecha" class="row" style="display:none;">
@@ -224,9 +234,10 @@
 
     function formatearHora(iso) {
         if (!iso) return '';
-        var d = new Date(iso.replace(' ', 'T') + 'Z');
-        var hours = d.getHours();
-        var minutes = String(d.getMinutes()).padStart(2, '0');
+        var match = iso.match(/(\d{1,2}):(\d{2})/);
+        if (!match) return '';
+        var hours = parseInt(match[1], 10);
+        var minutes = match[2];
         var ampm = hours >= 12 ? 'PM' : 'AM';
         hours = hours % 12 || 12;
         return hours + ':' + minutes + ' ' + ampm;
@@ -268,15 +279,6 @@
     document.addEventListener('DOMContentLoaded', function () {
         var input = document.getElementById('fecha_hora_entrega');
         if (input) {
-            if (!input.value) {
-                var now = new Date();
-                var year = now.getFullYear();
-                var month = String(now.getMonth() + 1).padStart(2, '0');
-                var day = String(now.getDate()).padStart(2, '0');
-                var hours = String(now.getHours()).padStart(2, '0');
-                var minutes = String(now.getMinutes()).padStart(2, '0');
-                input.value = year + '-' + month + '-' + day + 'T' + hours + ':' + minutes;
-            }
             input.addEventListener('change', cargarPedidosMismaFecha);
             cargarPedidosMismaFecha();
         }
@@ -284,7 +286,7 @@
         document.getElementById('btn-aceptar').closest('form').addEventListener('submit', function (e) {
             var total = parseFloat(document.getElementById('total').value);
             var anticipo = parseFloat(document.getElementById('anticipo').value);
-            if (!isNaN(total) && !isNaN(anticipo) && total <= anticipo) {
+            if (!isNaN(total) && !isNaN(anticipo) && total < anticipo) {
                 e.preventDefault();
                 Swal.fire({
                     icon: 'error',
