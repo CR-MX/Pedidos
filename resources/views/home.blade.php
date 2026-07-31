@@ -65,7 +65,7 @@
                     </div>
 
                     <div class="row mt-4">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="card">
                                 <div class="card-header">Pedidos de los últimos 15 días</div>
                                 <div class="card-body">
@@ -73,11 +73,19 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="card">
                                 <div class="card-header">Ventas de los últimos 15 días</div>
                                 <div class="card-body">
                                     <canvas id="graficaVentas" style="height:220px; width:100%;"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">Entregas de los próximos 14 días</div>
+                                <div class="card-body">
+                                    <canvas id="graficaEntregas" style="height:220px; width:100%;"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -186,6 +194,50 @@
                 ]
             },
             options: opcionesGraficaVentas
+        });
+
+        new Chart(document.getElementById('graficaEntregas'), {
+            type: 'bar',
+            data: {
+                labels: @json($diasEntrega),
+                datasets: [
+                    {
+                        label: 'Entregas',
+                        data: @json($pedidosEntregaDia),
+                        backgroundColor: '#58A187',
+                        borderColor: '#24514F',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    display: false
+                },
+                scales: {
+                    xAxes: [
+                        {
+                            ticks: {
+                                autoSkip: true,
+                                maxTicksLimit: 14,
+                                maxRotation: 0,
+                                fontColor: '#333',
+                                fontSize: 10
+                            }
+                        }
+                    ],
+                    yAxes: [
+                        {
+                            type: 'linear',
+                            position: 'left',
+                            scaleLabel: { display: true, labelString: 'Pedidos', fontSize: 11 },
+                            ticks: { beginAtZero: true, stepSize: 1, fontColor: '#333', fontSize: 10 }
+                        }
+                    ]
+                }
+            }
         });
     </script>
 @endsection

@@ -62,6 +62,27 @@ class HomeController extends Controller
             ->orderByDesc('total')
             ->get();
 
+        $inicioEntregas = now()->startOfDay();
+        $finEntregas = now()->addDays(13)->endOfDay();
+
+        $entregasPorDia = DB::table('pedidos')
+            ->whereNotNull('fecha_hora_entrega')
+            ->whereBetween('fecha_hora_entrega', [$inicioEntregas, $finEntregas])
+            ->selectRaw('DATE(fecha_hora_entrega) as dia, COUNT(*) as total')
+            ->groupBy('dia')
+            ->get()
+            ->keyBy('dia');
+
+        $diasEntrega = [];
+        $pedidosEntregaDia = [];
+        $cursor = now()->startOfDay();
+        for ($i = 0; $i < 14; $i++) {
+            $key = $cursor->toDateString();
+            $diasEntrega[] = $cursor->format('d/m');
+            $pedidosEntregaDia[] = (int) ($entregasPorDia[$key]->total ?? 0);
+            $cursor->addDay();
+        }
+
         return view('home', compact(
             'ventasUltimoMes',
             'pedidosUltimoMes',
@@ -70,7 +91,9 @@ class HomeController extends Controller
             'ventasPorLugar',
             'dias',
             'pedidosPorDia',
-            'ventasPorDia'
+            'ventasPorDia',
+            'diasEntrega',
+            'pedidosEntregaDia'
         ));
     }
 }
