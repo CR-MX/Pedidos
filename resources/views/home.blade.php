@@ -167,7 +167,7 @@
 
         var opcionesGraficaVentas = JSON.parse(JSON.stringify(opcionesGrafica));
         opcionesGraficaVentas.scales.yAxes[0].scaleLabel = { display: true, labelString: 'Ventas ($)', fontSize: 11 };
-        opcionesGraficaVentas.scales.yAxes[0].ticks.stepSize = 100;
+        opcionesGraficaVentas.scales.yAxes[0].ticks.stepSize = 500;
 
         new Chart(document.getElementById('graficaVentas'), {
             type: 'line',
