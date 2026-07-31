@@ -19,6 +19,7 @@ class TablePedido extends Component
 
     public $search_nombre = '';
     public $search_red_social = '';
+    public $search_entrega = '';
 
     public $selectedPedidoId = null;
     public $articulos = [];
@@ -67,6 +68,9 @@ class TablePedido extends Component
             })
             ->when($this->search_red_social, function ($param) {
                 $param->where('pedidos.red_social', 'like', '%' . $this->search_red_social . '%');
+            })
+            ->when($this->search_entrega, function ($param) {
+                $param->where('pedidos.entrega', $this->search_entrega);
             })
             ->orderBy($this->orderBy, $this->orderAsc ? 'desc' : 'asc');
 

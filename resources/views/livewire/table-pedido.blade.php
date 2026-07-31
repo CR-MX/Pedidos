@@ -87,7 +87,13 @@
                     <th></th>
                     <th></th>
                     <th></th>
-                    <th></th>
+                    <th>
+                        <select wire:model.live="search_entrega" class="form-control">
+                            <option value="">Seleccione</option>
+                            <option value="pendiente">Pendiente</option>
+                            <option value="entregado">Entregado</option>
+                        </select>
+                    </th>
                     <th></th>
                     <th></th>
                 </tr>
