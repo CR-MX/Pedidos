@@ -6,6 +6,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
 use App\Models\Pedido;
+use App\Models\Lugare;
 
 class TablePedido extends Component
 {
@@ -19,7 +20,12 @@ class TablePedido extends Component
 
     public $search_nombre = '';
     public $search_red_social = '';
+    public $search_anticipo = '';
+    public $search_por_cobrar = '';
+    public $search_dias_restantes = '';
+    public $search_fecha_hora = '';
     public $search_entrega = '';
+    public $search_lugar = '';
 
     public $selectedPedidoId = null;
     public $articulos = [];
@@ -67,10 +73,25 @@ class TablePedido extends Component
                 $param->where('pedidos.nombre', 'like', '%' . $this->search_nombre . '%');
             })
             ->when($this->search_red_social, function ($param) {
-                $param->where('pedidos.red_social', 'like', '%' . $this->search_red_social . '%');
+                $param->where('pedidos.red_social', $this->search_red_social);
+            })
+            ->when($this->search_anticipo, function ($param) {
+                $param->where('pedidos.anticipo', 'like', '%' . $this->search_anticipo . '%');
+            })
+            ->when($this->search_por_cobrar, function ($param) {
+                $param->whereRaw('(pedidos.total - pedidos.anticipo) like ?', ['%' . $this->search_por_cobrar . '%']);
+            })
+            ->when($this->search_dias_restantes, function ($param) {
+                $param->whereRaw('DATEDIFF(pedidos.fecha_hora_entrega, CURDATE()) like ?', ['%' . $this->search_dias_restantes . '%']);
+            })
+            ->when($this->search_fecha_hora, function ($param) {
+                $param->whereDate('pedidos.fecha_hora_entrega', $this->search_fecha_hora);
             })
             ->when($this->search_entrega, function ($param) {
                 $param->where('pedidos.entrega', $this->search_entrega);
+            })
+            ->when($this->search_lugar, function ($param) {
+                $param->where('pedidos.lugar_id', $this->search_lugar);
             })
             ->orderBy($this->orderBy, $this->orderAsc ? 'desc' : 'asc');
 
@@ -80,7 +101,9 @@ class TablePedido extends Component
             $registros = $query->paginate($this->perPage, ['*'], 'page', $this->page);
         }
 
-        return view('livewire.table-pedido', compact('registros'))
+        $lugares = Lugare::orderBy('nombre')->get();
+
+        return view('livewire.table-pedido', compact('registros', 'lugares'))
             ->with('i', ($registros->currentPage() - 1) * $registros->perPage());
     }
 }

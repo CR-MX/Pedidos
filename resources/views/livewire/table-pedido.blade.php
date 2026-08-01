@@ -81,20 +81,36 @@
                     <th></th>
                     <th><input wire:model.live.debounce.250ms="search_nombre" type="text"
                             class="form-control" placeholder="Buscar..."></th>
-                    <th><input wire:model.live.debounce.250ms="search_red_social" type="text" class="form-control"
+                    <th>
+                        <select wire:model.live="search_red_social" class="form-control">
+                            <option value="">Red Social</option>
+                            <option value="Facebook">Facebook</option>
+                            <option value="Instagram">Instagram</option>
+                            <option value="WhatsApp">WhatsApp</option>
+                        </select>
+                    </th>
+                    <th><input wire:model.live.debounce.250ms="search_anticipo" type="text" class="form-control"
                             placeholder="Buscar..."></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
+                    <th><input wire:model.live.debounce.250ms="search_por_cobrar" type="text" class="form-control"
+                            placeholder="Buscar..."></th>
+                    <th><input wire:model.live.debounce.250ms="search_dias_restantes" type="text" class="form-control"
+                            placeholder="Buscar..."></th>
+                    <th><input wire:model.live="search_fecha_hora" type="date" class="form-control"></th>
                     <th>
                         <select wire:model.live="search_entrega" class="form-control">
-                            <option value="">Seleccione</option>
+                            <option value="">Entrega</option>
                             <option value="pendiente">Pendiente</option>
                             <option value="entregado">Entregado</option>
                         </select>
                     </th>
-                    <th></th>
+                    <th>
+                        <select wire:model.live="search_lugar" class="form-control">
+                            <option value="">Lugar</option>
+                            @foreach ($lugares as $lugar)
+                                <option value="{{ $lugar->id }}">{{ $lugar->nombre }}</option>
+                            @endforeach
+                        </select>
+                    </th>
                     <th></th>
                 </tr>
             </thead>
