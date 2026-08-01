@@ -35,6 +35,7 @@
                                                 <th>Pedido</th>
                                                 <th>Hora Entrega</th>
                                                 <th>Lugar</th>
+                                                <th>Realizado</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -46,6 +47,10 @@
                                                     <td>{{ $art->pedido?->nombre ?? '' }}</td>
                                                     <td>{{ \Carbon\Carbon::parse($art->pedido?->fecha_hora_entrega)->format('h:i A') }}</td>
                                                     <td>{{ $art->pedido?->lugare?->nombre ?? '' }}</td>
+                                                    <td class="text-center">
+                                                        <input type="checkbox" class="chk-realizado" data-id="{{ $art->id }}"
+                                                            {{ $art->realizado ? 'checked' : '' }}>
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -60,4 +65,25 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.chk-realizado').forEach(function (chk) {
+                chk.addEventListener('change', function () {
+                    var id = this.dataset.id;
+                    var formData = new FormData();
+                    formData.append('realizado', this.checked ? '1' : '0');
+                    formData.append('_token', '{{ csrf_token() }}');
+
+                    fetch('{{ route('articulos-pedidos.actualizar-realizado', ':id') }}'.replace(':id', id), {
+                        method: 'POST',
+                        body: formData,
+                        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                    });
+                });
+            });
+        });
+    </script>
 @endsection

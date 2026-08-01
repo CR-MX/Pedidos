@@ -31,7 +31,11 @@ class ArticulosPedido extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['pedido_id', 'nombre', 'color', 'cantidad', 'tipo_id'];
+    protected $fillable = ['pedido_id', 'nombre', 'color', 'cantidad', 'tipo_id', 'realizado'];
+
+    protected $casts = [
+        'realizado' => 'boolean',
+    ];
 
 
     /**

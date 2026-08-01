@@ -17,6 +17,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('pedidos-por-fecha', [PedidoController::class, 'porFecha'])->name('pedidos.por-fecha');
     Route::get('articulos-por-color', [PedidoController::class, 'articulosPorColor'])->name('pedidos.articulos-por-color');
+    Route::post('articulos-pedidos/{articulo}/realizado', [ArticulosPedidoController::class, 'actualizarRealizado'])
+        ->name('articulos-pedidos.actualizar-realizado');
     Route::resource('pedidos', PedidoController::class);
     Route::resource('articulos-pedidos', ArticulosPedidoController::class);
     Route::resource('tipos', TipoController::class);

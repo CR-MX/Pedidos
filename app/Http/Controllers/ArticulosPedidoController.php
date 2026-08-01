@@ -6,6 +6,7 @@ use App\Models\ArticulosPedido;
 use App\Models\Color;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use App\Http\Requests\ArticulosPedidoRequest;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
@@ -83,5 +84,12 @@ class ArticulosPedidoController extends Controller
 
         return Redirect::route('articulos-pedidos.index')
             ->with('success', 'Artículo eliminado exitosamente');
+    }
+
+    public function actualizarRealizado(Request $request, ArticulosPedido $articulo): JsonResponse
+    {
+        $articulo->update(['realizado' => $request->boolean('realizado')]);
+
+        return response()->json(['success' => true]);
     }
 }
