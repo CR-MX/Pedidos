@@ -146,10 +146,32 @@
             <table class="table table-sm table-striped table-bordered" id="tabla-articulos">
                 <thead>
                     <tr class="table-success">
-                        <th>Nombre</th>
-                        <th>Color</th>
-                        <th>Cantidad</th>
-                        <th>Tipo</th>
+                        <th>Nombre
+                            <br>
+                            <input type="text" id="art-nombre" class="form-control" placeholder="Nombre">
+                        </th>
+                        <th>Color
+                            <br>
+                            <select id="art-color" class="form-control">
+                                <option value="">Seleccione</option>
+                                @foreach ($colores as $color)
+                                    <option value="{{ $color->nombre }}">{{ $color->nombre }}</option>
+                                @endforeach
+                            </select>
+                        </th>
+                        <th>Cantidad
+                            <br>
+                            <input type="number" id="art-cantidad" class="form-control" placeholder="0">
+                        </th>
+                        <th>Tipo
+                            <br>
+                            <select id="art-tipo_id" class="form-control">
+                                <option value="">Seleccione</option>
+                                @foreach ($tipos as $tipo)
+                                    <option value="{{ $tipo->id }}">{{ $tipo->nombre }}</option>
+                                @endforeach
+                            </select>
+                        </th>
                         <th style="width:80px; text-align:center; vertical-align:middle;">
                             <button type="button" class="btn btn-success btn-sm" onclick="agregarArticulo()">
                                 <i class="fas fa-plus"></i>
@@ -305,8 +327,15 @@
         var html = template.innerHTML.replace(/__INDEX__/g, articuloIndex);
         var tr = document.createElement('tr');
         tr.innerHTML = html;
+        tr.querySelector('input[name="articulos[' + articuloIndex + '][nombre]"]').value = document.getElementById('art-nombre').value;
+        tr.querySelector('select[name="articulos[' + articuloIndex + '][color]"]').value = document.getElementById('art-color').value;
+        tr.querySelector('input[name="articulos[' + articuloIndex + '][cantidad]"]').value = document.getElementById('art-cantidad').value;
+        tr.querySelector('select[name="articulos[' + articuloIndex + '][tipo_id]"]').value = document.getElementById('art-tipo_id').value;
         tbody.appendChild(tr);
         articuloIndex++;
+        var nombreInput = document.getElementById('art-nombre');
+        nombreInput.focus();
+        nombreInput.select();
     }
 
     function eliminarArticulo(btn) {
