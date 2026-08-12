@@ -14,8 +14,8 @@ class TablePedido extends Component
 
     protected $paginationTheme = 'bootstrap';
     public $perPage = 10;
-    public $orderBy = 'id';
-    public $orderAsc = true;
+    public $orderBy = 'dias_restantes';
+    public $orderAsc = false;
     public $page = 1;
 
     public $search_nombre = '';
@@ -24,7 +24,7 @@ class TablePedido extends Component
     public $search_por_cobrar = '';
     public $search_dias_restantes = '';
     public $search_fecha_hora = '';
-    public $search_entrega = '';
+    public $search_entrega = 'pendiente';
     public $search_lugar = '';
 
     public $selectedPedidoId = null;
