@@ -10,6 +10,7 @@ use App\Models\ArticulosPedido;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\PedidoRequest;
 use Illuminate\Support\Facades\Redirect;
@@ -89,10 +90,18 @@ class PedidoController extends Controller
     {
         $pedido->update($request->validated());
 
+        $realizados = $pedido->articulosPedidos()
+            ->pluck('realizado', DB::raw("CONCAT(nombre, '|', color)"))
+            ->toArray();
+
         $pedido->articulosPedidos()->delete();
         if ($request->has('articulos')) {
             foreach ($request->articulos as $item) {
-                $pedido->articulosPedidos()->create($item);
+                $articulo = $pedido->articulosPedidos()->create($item);
+                $key = $item['nombre'] . '|' . $item['color'];
+                if (isset($realizados[$key]) && $realizados[$key]) {
+                    $articulo->update(['realizado' => true]);
+                }
             }
         }
 
