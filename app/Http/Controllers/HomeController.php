@@ -27,9 +27,9 @@ class HomeController extends Controller
     {
         $ventasUltimoMes = Pedido::where('created_at', '>=', now()->subMonth())->sum('total');
         $pedidosUltimoMes = Pedido::where('created_at', '>=', now()->subMonth())->count();
-        $porCobrarPendiente = Pedido::whereRaw('total > anticipo')
-            ->get(['total', 'anticipo'])
-            ->sum(fn ($p) => $p->total - $p->anticipo);
+        $porCobrarPendiente = Pedido::where('entrega', 'pendiente')
+            ->whereRaw('total > anticipo')
+            ->sum(DB::raw('total - anticipo'));
         $pendientesEntrega = Pedido::where('entrega', 'pendiente')->count();
 
         $inicio = now()->subDays(14)->startOfDay();
