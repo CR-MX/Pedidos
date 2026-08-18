@@ -18,10 +18,16 @@
                     @endif
 
                     <div class="row">
-                        <div class="col-lg-3 col-6">
+                        <div class="col-lg-3 col-6 position-relative">
+                            <button type="button" class="btn btn-sm"
+                                style="position:absolute; top:5px; right:5px; z-index:10;"
+                                onclick="toggleBox('ventas')">
+                                <i class="fas fa-eye" style="color: white"  id="icono-ventas"></i>
+                            </button>
                             <div class="small-box bg-info">
                                 <div class="inner">
-                                    <h3>${{ number_format($ventasUltimoMes, 2) }}</h3>
+                                    <h3 id="oculto-ventas">*****</h3>
+                                    <h3 id="real-ventas" style="display:none">${{ number_format($ventasUltimoMes, 2) }}</h3>
                                     <p>Ventas del último mes</p>
                                 </div>
                                 <div class="icon">
@@ -40,10 +46,16 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-6">
+                        <div class="col-lg-3 col-6 position-relative">
+                            <button type="button" class="btn btn-sm "
+                                style="position:absolute; top:5px; right:5px; z-index:10;"
+                                onclick="toggleBox('cobrar')">
+                                <i class="fas fa-eye"  id="icono-cobrar"></i>
+                            </button>
                             <div class="small-box bg-warning">
                                 <div class="inner">
-                                    <h3>${{ number_format($porCobrarPendiente, 2) }}</h3>
+                                    <h3 id="oculto-cobrar">*****</h3>
+                                    <h3 id="real-cobrar" style="display:none">${{ number_format($porCobrarPendiente, 2) }}</h3>
                                     <p>Por cobrar pendiente</p>
                                 </div>
                                 <div class="icon">
@@ -125,6 +137,21 @@
 
 @section('js')
     <script>
+        function toggleBox(id) {
+            var oculto = document.getElementById('oculto-' + id);
+            var real   = document.getElementById('real-' + id);
+            var icon   = document.getElementById('icono-' + id);
+            if (oculto.style.display === 'none') {
+                oculto.style.display = '';
+                real.style.display = 'none';
+                icon.classList.replace('fa-eye-slash', 'fa-eye');
+            } else {
+                oculto.style.display = 'none';
+                real.style.display = '';
+                icon.classList.replace('fa-eye', 'fa-eye-slash');
+            }
+        }
+
         var opcionesGrafica = {
             responsive: true,
             maintainAspectRatio: false,
