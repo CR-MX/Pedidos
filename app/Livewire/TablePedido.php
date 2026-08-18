@@ -51,7 +51,10 @@ class TablePedido extends Component
 
     public function confirmarEntrega($pedidoId)
     {
-        Pedido::where('id', $pedidoId)->update(['entrega' => 'entregado']);
+        Pedido::where('id', $pedidoId)->update([
+            'entrega' => 'entregado',
+            'anticipo' => DB::raw('total'),
+        ]);
         $this->dispatch('pedido-entregado');
     }
 
