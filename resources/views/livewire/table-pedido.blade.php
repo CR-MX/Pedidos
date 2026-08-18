@@ -65,33 +65,21 @@
     <div class="table-responsive">
         <table class="table table-sm table-striped table-hover no-footer" role="grid">
             <thead>
-                <tr>
+<tr>
                     <th>No</th>
                     <th>Nombre</th>
-                    <th>Red Social</th>
                     <th>Fecha Entrega</th>
-                    <th>Días Rest.</th>
                     <th>Lugar</th>
                     <th>Entrega</th>
-                    <th>Articulos Impresos</th>
-                    <th>Anticipo / PorCobrar</th>
+                    <th>Art.Imp</th>
+                    <th>Por Cobrar</th>
                     <th>Acciones</th>
                 </tr>
                 <tr>
                     <th></th>
                     <th><input wire:model.live.debounce.250ms="search_nombre" type="text"
                             class="form-control" placeholder="Buscar..."></th>
-                    <th>
-                        <select wire:model.live="search_red_social" class="form-control">
-                            <option value="">Red Social</option>
-                            <option value="Facebook">Facebook</option>
-                            <option value="Instagram">Instagram</option>
-                            <option value="WhatsApp">WhatsApp</option>
-                        </select>
-                    </th>
                     <th><input wire:model.live="search_fecha_hora" type="date" class="form-control"></th>
-                    <th><input wire:model.live.debounce.250ms="search_dias_restantes" type="text" class="form-control"
-                            placeholder="Buscar..."></th>
                     <th>
                         <select wire:model.live="search_lugar" class="form-control">
                             <option value="">Lugar</option>
@@ -117,22 +105,22 @@
                     <tr>
                         <td>{{ ++$i }}</td>
                         <td class="texto-limitado">{{ $pedido->nombre ?? '' }}</td>
-                        <td>{{ $pedido->red_social ?? '' }}</td>
-                        <td>{{ $pedido->fecha_hora_entrega ? \Carbon\Carbon::parse($pedido->fecha_hora_entrega)->format('d/m/Y h:i A') : '—' }}</td>
-                        <td>
+                        <td class="text-center">
                             @if ($pedido->fecha_hora_entrega)
+                                {{ \Carbon\Carbon::parse($pedido->fecha_hora_entrega)->format('d/m/Y h:i A') }}
+                                <br>
                                 @php
                                     $dias = $pedido->dias_restantes ?? 999;
                                 @endphp
                                 @if ($dias >= 6)
-                                    <span class="badge bg-success" style="font-size:1rem; padding:8px 12px;">{{ $dias }} días</span>
+                                    <span class="badge bg-success" style="font-size:0.9rem; padding:4px 8px;">{{ $dias }} días</span>
                                 @elseif ($dias >= 3)
-                                    <span class="badge bg-warning text-dark" style="font-size:1rem; padding:8px 12px;">{{ $dias }} días</span>
+                                    <span class="badge bg-warning text-dark" style="font-size:0.9rem; padding:4px 8px;">{{ $dias }} días</span>
                                 @else
-                                    <span class="badge bg-danger" style="font-size:1rem; padding:8px 12px;">{{ $dias }} días</span>
+                                    <span class="badge bg-danger" style="font-size:0.9rem; padding:4px 8px;">{{ $dias }} días</span>
                                 @endif
                             @else
-                                <span class="badge bg-secondary" style="font-size:1rem; padding:8px 12px;">Pendiente</span>
+                                <span class="badge bg-secondary" style="font-size:0.9rem; padding:4px 8px;">Pendiente</span>
                             @endif
                         </td>
                         <td>{{ $pedido->lugar_nombre ?? '' }}</td>
@@ -148,9 +136,9 @@
                         <td class="text-center">{{ $pedido->realizados_articulos }} / {{ $pedido->total_articulos }}</td>
                         <td>
                             @if ($pedido->por_cobrar > 0)
-                                ${{ number_format($pedido->anticipo ?? 0, 2) }}/${{ number_format($pedido->por_cobrar ?? 0, 2) }}
+                                ${{ number_format($pedido->por_cobrar ?? 0, 2) }}
                             @else
-                                ${{ number_format($pedido->anticipo ?? 0, 2) }}/<span class="badge bg-success" style="font-size:1rem; padding:8px 12px;">Pagado</span>
+                                <span class="badge bg-success" style="font-size:0.9rem; padding:4px 8px;">Pagado</span>
                             @endif
                         </td>
                         <td style="white-space: nowrap;">

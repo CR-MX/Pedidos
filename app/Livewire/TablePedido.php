@@ -19,8 +19,6 @@ class TablePedido extends Component
     public $page = 1;
 
     public $search_nombre = '';
-    public $search_red_social = '';
-    public $search_dias_restantes = '';
     public $search_fecha_hora = '';
     public $search_entrega = 'pendiente';
     public $search_lugar = '';
@@ -77,12 +75,6 @@ class TablePedido extends Component
             )
             ->when($this->search_nombre, function ($param) {
                 $param->where('pedidos.nombre', 'like', '%' . $this->search_nombre . '%');
-            })
-            ->when($this->search_red_social, function ($param) {
-                $param->where('pedidos.red_social', $this->search_red_social);
-            })
-            ->when($this->search_dias_restantes, function ($param) {
-                $param->whereRaw('DATEDIFF(pedidos.fecha_hora_entrega, CURDATE()) like ?', ['%' . $this->search_dias_restantes . '%']);
             })
             ->when($this->search_fecha_hora, function ($param) {
                 $param->whereDate('pedidos.fecha_hora_entrega', $this->search_fecha_hora);
