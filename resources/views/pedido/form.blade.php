@@ -292,7 +292,7 @@
                     tr.innerHTML = '<td>' + p.nombre + '</td>' +
                         '<td>' + (p.lugar || '') + '</td>' +
                         '<td>' + formatearHora(p.fecha_hora_entrega) + '</td>';
-                    tbody.appendChild(tr);
+        tbody.insertBefore(tr, tbody.firstChild);
                 });
                 container.style.display = '';
             });
@@ -331,7 +331,7 @@
         tr.querySelector('select[name="articulos[' + articuloIndex + '][color]"]').value = document.getElementById('art-color').value;
         tr.querySelector('input[name="articulos[' + articuloIndex + '][cantidad]"]').value = document.getElementById('art-cantidad').value;
         tr.querySelector('select[name="articulos[' + articuloIndex + '][tipo_id]"]').value = document.getElementById('art-tipo_id').value;
-        tbody.appendChild(tr);
+        tbody.prepend(tr);
         articuloIndex++;
         var nombreInput = document.getElementById('art-nombre');
         nombreInput.focus();
