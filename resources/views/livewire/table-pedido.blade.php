@@ -155,9 +155,9 @@
                         </td>
                         <td style="white-space: nowrap;">
                             @if (!empty($pedido->informacion_adicional))
-                                <button type="button" class="btn btn-sm btn-warning" title="Información adicional"
+                                <button type="button" class="btn btn-sm btn-primary" title="Información adicional"
                                     data-info="{{ $pedido->informacion_adicional }}" onclick="verInformacion(this)">
-                                    <i class="fas fa-sticky-note"></i>
+                                    <i class="fas  fa-comment-dots"></i>
                                 </button>
                             @endif
                             <form action="{{ route('pedidos.destroy', $pedido->id) }}" method="POST"
