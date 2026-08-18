@@ -65,7 +65,7 @@
     <div class="table-responsive">
         <table class="table table-sm table-striped table-hover no-footer" role="grid">
             <thead>
-<tr>
+                <tr>
                     <th>No</th>
                     <th>Nombre</th>
                     <th>Fecha Entrega</th>
@@ -77,8 +77,8 @@
                 </tr>
                 <tr>
                     <th></th>
-                    <th><input wire:model.live.debounce.250ms="search_nombre" type="text"
-                            class="form-control" placeholder="Buscar..."></th>
+                    <th><input wire:model.live.debounce.250ms="search_nombre" type="text" class="form-control"
+                            placeholder="Buscar..."></th>
                     <th><input wire:model.live="search_fecha_hora" type="date" class="form-control"></th>
                     <th>
                         <select wire:model.live="search_lugar" class="form-control">
@@ -113,27 +113,39 @@
                                     $dias = $pedido->dias_restantes ?? 999;
                                 @endphp
                                 @if ($dias >= 6)
-                                    <span class="badge bg-success" style="font-size:0.9rem; padding:4px 8px;">{{ $dias }} días</span>
+                                    <span class="badge bg-success"
+                                        style="font-size:0.9rem; padding:4px 8px;">{{ $dias }} días</span>
                                 @elseif ($dias >= 3)
-                                    <span class="badge bg-warning text-dark" style="font-size:0.9rem; padding:4px 8px;">{{ $dias }} días</span>
+                                    <span class="badge bg-warning text-dark"
+                                        style="font-size:0.9rem; padding:4px 8px;">{{ $dias }} días</span>
                                 @else
-                                    <span class="badge bg-danger" style="font-size:0.9rem; padding:4px 8px;">{{ $dias }} días</span>
+                                    <span class="badge bg-danger"
+                                        style="font-size:0.9rem; padding:4px 8px;">{{ $dias }} días</span>
                                 @endif
                             @else
-                                <span class="badge bg-secondary" style="font-size:0.9rem; padding:4px 8px;">Pendiente</span>
+                                <span class="badge bg-secondary"
+                                    style="font-size:0.9rem; padding:4px 8px;">Pendiente</span>
                             @endif
                         </td>
                         <td>{{ $pedido->lugar_nombre ?? '' }}</td>
                         <td style="white-space: nowrap;">
                             @if (($pedido->entrega ?? 'pendiente') === 'entregado')
-                                <span class="badge bg-success" style="font-size:1rem; padding:8px 12px;">Entregado</span>
+                                <span class="badge bg-success"
+                                    style="font-size:1rem; padding:8px 12px;">Entregado</span>
                             @else
-                                <button type="button" class="badge bg-warning text-dark border-0" title="Confirmar entrega"
-                                    style="font-size:1rem; padding:8px 12px; cursor:pointer;"
+                                <button type="button" class="badge bg-warning text-dark border-0"
+                                    title="Confirmar entrega" style="font-size:1rem; padding:8px 12px; cursor:pointer;"
                                     onclick="confirmarEntrega({{ $pedido->id }})">Pendiente</button>
                             @endif
                         </td>
-                        <td class="text-center">{{ $pedido->realizados_articulos }} / {{ $pedido->total_articulos }}</td>
+                        <td class="text-center">
+                            <button type="button" class="btn btn-sm btn-info" title="Ver artículos"
+                                wire:click="verArticulos({{ $pedido->id }})">
+                                {{ $pedido->realizados_articulos }} / {{ $pedido->total_articulos }}
+                                &nbsp;&nbsp;
+                                <i class="fas fa-box"></i>
+                            </button>
+                        </td>
                         <td>
                             @if ($pedido->por_cobrar > 0)
                                 ${{ number_format($pedido->por_cobrar ?? 0, 2) }}
@@ -148,11 +160,8 @@
                                     <i class="fas fa-sticky-note"></i>
                                 </button>
                             @endif
-                            <button type="button" class="btn btn-sm btn-info" title="Ver artículos"
-                                wire:click="verArticulos({{ $pedido->id }})">
-                                <i class="fas fa-box"></i>
-                            </button>
-                            <form action="{{ route('pedidos.destroy', $pedido->id) }}" method="POST" style="display: inline;">
+                            <form action="{{ route('pedidos.destroy', $pedido->id) }}" method="POST"
+                                style="display: inline;">
                                 <a class="btn btn-sm btn-success" title="Actualizar"
                                     href="{{ route('pedidos.edit', $pedido->id) }}"><i
                                         class="fa fa-fw fa-edit"></i></a>
@@ -170,7 +179,8 @@
     {!! $registros->withQueryString()->links() !!}
 
     @if ($selectedPedidoId)
-        <div class="modal" style="display:block; background:rgba(0,0,0,0.5); position:fixed; top:0; left:0; width:100%; height:100%; z-index:9999;">
+        <div class="modal"
+            style="display:block; background:rgba(0,0,0,0.5); position:fixed; top:0; left:0; width:100%; height:100%; z-index:9999;">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -185,6 +195,7 @@
                                     <th>Color</th>
                                     <th>Cantidad</th>
                                     <th>Tipo</th>
+                                    <th>Realizado</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -194,9 +205,18 @@
                                         <td>{{ $art->color }}</td>
                                         <td>{{ $art->cantidad }}</td>
                                         <td>{{ $art->tipo_nombre }}</td>
+                                        <td class="text-center">
+                                            @if ($art->realizado)
+                                                <span class="badge bg-success">Sí</span>
+                                            @else
+                                                <span class="badge bg-secondary">No</span>
+                                            @endif
+                                        </td>
                                     </tr>
                                 @empty
-                                    <tr><td colspan="4" class="text-center">Sin artículos</td></tr>
+                                    <tr>
+                                        <td colspan="5" class="text-center">Sin artículos</td>
+                                    </tr>
                                 @endforelse
                             </tbody>
                         </table>
@@ -231,7 +251,7 @@
             });
         }
 
-        Livewire.on('pedido-entregado', function () {
+        Livewire.on('pedido-entregado', function() {
             Swal.fire({
                 icon: 'success',
                 title: 'Entregado',
