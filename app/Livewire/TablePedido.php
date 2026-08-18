@@ -28,11 +28,13 @@ class TablePedido extends Component
     public $search_lugar = '';
 
     public $selectedPedidoId = null;
+    public $selectedPedidoNombre = null;
     public $articulos = [];
 
     public function verArticulos($pedidoId)
     {
         $this->selectedPedidoId = $pedidoId;
+        $this->selectedPedidoNombre = Pedido::find($pedidoId)?->nombre;
         $this->articulos = DB::table('articulos_pedidos')
             ->leftJoin('tipos', 'articulos_pedidos.tipo_id', '=', 'tipos.id')
             ->select('articulos_pedidos.*', 'tipos.nombre as tipo_nombre')
@@ -43,6 +45,7 @@ class TablePedido extends Component
     public function cerrarModal()
     {
         $this->selectedPedidoId = null;
+        $this->selectedPedidoNombre = null;
         $this->articulos = [];
     }
 

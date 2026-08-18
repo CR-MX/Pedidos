@@ -182,7 +182,7 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5>Artículos del Pedido</h5>
+                        <h5>Artículos del Pedido - {{ $selectedPedidoNombre }}</h5>
                         <button type="button" class="close" wire:click="cerrarModal">&times;</button>
                     </div>
                     <div class="modal-body">
