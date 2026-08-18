@@ -158,6 +158,10 @@
             legend: {
                 display: false
             },
+            tooltips: {
+                mode: 'index',
+                intersect: false
+            },
             scales: {
                 xAxes: [
                     {
@@ -242,6 +246,10 @@
                 maintainAspectRatio: false,
                 legend: {
                     display: false
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false
                 },
                 scales: {
                     xAxes: [
