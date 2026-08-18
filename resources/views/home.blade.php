@@ -56,7 +56,7 @@
                                 <div class="inner">
                                     <h3 id="oculto-cobrar">*****</h3>
                                     <h3 id="real-cobrar" style="display:none">${{ number_format($porCobrarPendiente, 2) }}</h3>
-                                    <p>Por cobrar pendiente</p>
+                                    <p>Por cobrar</p>
                                 </div>
                                 <div class="icon">
                                     <i class="fas fa-money-bill"></i>
