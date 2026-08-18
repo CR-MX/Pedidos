@@ -142,7 +142,7 @@
                             <button type="button" class="btn btn-sm btn-info" title="Ver artículos"
                                 wire:click="verArticulos({{ $pedido->id }})">
                                 {{ $pedido->realizados_articulos }} / {{ $pedido->total_articulos }}
-                                &nbsp;&nbsp;
+                                &nbsp; 
                                 <i class="fas fa-box"></i>
                             </button>
                         </td>
