@@ -67,7 +67,7 @@
                             <div class="small-box bg-danger">
                                 <div class="inner">
                                     <h3>{{ $pendientesEntrega }}</h3>
-                                    <p>Pedidos pendientes de entrega</p>
+                                    <p>Pedidos pendientes</p>
                                 </div>
                                 <div class="icon">
                                     <i class="fas fa-truck"></i>
