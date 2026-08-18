@@ -20,8 +20,6 @@ class TablePedido extends Component
 
     public $search_nombre = '';
     public $search_red_social = '';
-    public $search_anticipo = '';
-    public $search_por_cobrar = '';
     public $search_dias_restantes = '';
     public $search_fecha_hora = '';
     public $search_entrega = 'pendiente';
@@ -73,6 +71,8 @@ class TablePedido extends Component
                 'pedidos.lugar_id',
                 'pedidos.informacion_adicional',
                 'pedidos.entrega',
+                DB::raw('(SELECT COUNT(*) FROM articulos_pedidos WHERE pedido_id = pedidos.id) as total_articulos'),
+                DB::raw('(SELECT COUNT(*) FROM articulos_pedidos WHERE pedido_id = pedidos.id AND realizado = 1) as realizados_articulos'),
                 'lugares.nombre as lugar_nombre',
             )
             ->when($this->search_nombre, function ($param) {
@@ -80,12 +80,6 @@ class TablePedido extends Component
             })
             ->when($this->search_red_social, function ($param) {
                 $param->where('pedidos.red_social', $this->search_red_social);
-            })
-            ->when($this->search_anticipo, function ($param) {
-                $param->where('pedidos.anticipo', 'like', '%' . $this->search_anticipo . '%');
-            })
-            ->when($this->search_por_cobrar, function ($param) {
-                $param->whereRaw('(pedidos.total - pedidos.anticipo) like ?', ['%' . $this->search_por_cobrar . '%']);
             })
             ->when($this->search_dias_restantes, function ($param) {
                 $param->whereRaw('DATEDIFF(pedidos.fecha_hora_entrega, CURDATE()) like ?', ['%' . $this->search_dias_restantes . '%']);

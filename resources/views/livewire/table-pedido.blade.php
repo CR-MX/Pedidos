@@ -69,12 +69,12 @@
                     <th>No</th>
                     <th>Nombre</th>
                     <th>Red Social</th>
-                    <th>Anticipo</th>
-                    <th>Por Cobrar</th>
-                    <th>Días Rest.</th>
                     <th>Fecha Entrega</th>
-                    <th>Entrega</th>
+                    <th>Días Rest.</th>
                     <th>Lugar</th>
+                    <th>Entrega</th>
+                    <th>Articulos Impresos</th>
+                    <th>Anticipo / PorCobrar</th>
                     <th>Acciones</th>
                 </tr>
                 <tr>
@@ -89,20 +89,9 @@
                             <option value="WhatsApp">WhatsApp</option>
                         </select>
                     </th>
-                    <th><input wire:model.live.debounce.250ms="search_anticipo" type="text" class="form-control"
-                            placeholder="Buscar..."></th>
-                    <th><input wire:model.live.debounce.250ms="search_por_cobrar" type="text" class="form-control"
-                            placeholder="Buscar..."></th>
+                    <th><input wire:model.live="search_fecha_hora" type="date" class="form-control"></th>
                     <th><input wire:model.live.debounce.250ms="search_dias_restantes" type="text" class="form-control"
                             placeholder="Buscar..."></th>
-                    <th><input wire:model.live="search_fecha_hora" type="date" class="form-control"></th>
-                    <th>
-                        <select wire:model.live="search_entrega" class="form-control">
-                            <option value="">Entrega</option>
-                            <option value="pendiente">Pendiente</option>
-                            <option value="entregado">Entregado</option>
-                        </select>
-                    </th>
                     <th>
                         <select wire:model.live="search_lugar" class="form-control">
                             <option value="">Lugar</option>
@@ -111,6 +100,15 @@
                             @endforeach
                         </select>
                     </th>
+                    <th>
+                        <select wire:model.live="search_entrega" class="form-control">
+                            <option value="">Entrega</option>
+                            <option value="pendiente">Pendiente</option>
+                            <option value="entregado">Entregado</option>
+                        </select>
+                    </th>
+                    <th></th>
+                    <th></th>
                     <th></th>
                 </tr>
             </thead>
@@ -120,14 +118,7 @@
                         <td>{{ ++$i }}</td>
                         <td class="texto-limitado">{{ $pedido->nombre ?? '' }}</td>
                         <td>{{ $pedido->red_social ?? '' }}</td>
-                        <td>${{ number_format($pedido->anticipo ?? 0, 2) }}</td>
-                        <td>
-                            @if ($pedido->por_cobrar > 0)
-                                ${{ number_format($pedido->por_cobrar ?? 0, 2) }}
-                            @else
-                                <span class="badge bg-success" style="font-size:1rem; padding:8px 12px;">Pagado</span>
-                            @endif
-                        </td>
+                        <td>{{ $pedido->fecha_hora_entrega ? \Carbon\Carbon::parse($pedido->fecha_hora_entrega)->format('d/m/Y h:i A') : '—' }}</td>
                         <td>
                             @if ($pedido->fecha_hora_entrega)
                                 @php
@@ -144,7 +135,7 @@
                                 <span class="badge bg-secondary" style="font-size:1rem; padding:8px 12px;">Pendiente</span>
                             @endif
                         </td>
-                        <td>{{ $pedido->fecha_hora_entrega ? \Carbon\Carbon::parse($pedido->fecha_hora_entrega)->format('d/m/Y h:i A') : '—' }}</td>
+                        <td>{{ $pedido->lugar_nombre ?? '' }}</td>
                         <td style="white-space: nowrap;">
                             @if (($pedido->entrega ?? 'pendiente') === 'entregado')
                                 <span class="badge bg-success" style="font-size:1rem; padding:8px 12px;">Entregado</span>
@@ -154,8 +145,21 @@
                                     onclick="confirmarEntrega({{ $pedido->id }})">Pendiente</button>
                             @endif
                         </td>
-                        <td>{{ $pedido->lugar_nombre ?? '' }}</td>
+                        <td class="text-center">{{ $pedido->realizados_articulos }} / {{ $pedido->total_articulos }}</td>
+                        <td>
+                            @if ($pedido->por_cobrar > 0)
+                                ${{ number_format($pedido->anticipo ?? 0, 2) }}/${{ number_format($pedido->por_cobrar ?? 0, 2) }}
+                            @else
+                                ${{ number_format($pedido->anticipo ?? 0, 2) }}/<span class="badge bg-success" style="font-size:1rem; padding:8px 12px;">Pagado</span>
+                            @endif
+                        </td>
                         <td style="white-space: nowrap;">
+                            @if (!empty($pedido->informacion_adicional))
+                                <button type="button" class="btn btn-sm btn-warning" title="Información adicional"
+                                    data-info="{{ $pedido->informacion_adicional }}" onclick="verInformacion(this)">
+                                    <i class="fas fa-sticky-note"></i>
+                                </button>
+                            @endif
                             <button type="button" class="btn btn-sm btn-info" title="Ver artículos"
                                 wire:click="verArticulos({{ $pedido->id }})">
                                 <i class="fas fa-box"></i>
@@ -215,6 +219,13 @@
     @endif
 
     <script>
+        function verInformacion(btn) {
+            Swal.fire({
+                html: '<p style="font-size:1.3rem; margin:0;">' + btn.dataset.info + '</p>',
+                confirmButtonText: 'Aceptar'
+            });
+        }
+
         function confirmarEntrega(id) {
             Swal.fire({
                 title: '¿Confirmar entrega?',
