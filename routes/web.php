@@ -15,6 +15,7 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
     Route::redirect('/', '/home');
     Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/inicio', [HomeController::class, 'inicio'])->name('inicio');
     Route::get('pedidos-por-fecha', [PedidoController::class, 'porFecha'])->name('pedidos.por-fecha');
     Route::get('articulos-por-color', [PedidoController::class, 'articulosPorColor'])->name('pedidos.articulos-por-color');
     Route::post('articulos-pedidos/{articulo}/realizado', [ArticulosPedidoController::class, 'actualizarRealizado'])

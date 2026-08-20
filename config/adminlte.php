@@ -318,6 +318,11 @@ return [
         
         ['header' => 'Menú'],
         [
+            'text' => 'Inicio',
+            'route' => 'inicio',
+            'icon' => 'fas fa-home',
+        ],
+        [
             'text' => 'Pedidos',
             'icon' => 'fas fa-clipboard-list',
             'submenu' => [

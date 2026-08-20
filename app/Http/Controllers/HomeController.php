@@ -25,6 +25,16 @@ class HomeController extends Controller
      */
     public function index()
     {
+        return view('home');
+    }
+
+    /**
+     * Show the dashboard with statistics.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function inicio()
+    {
         $ventasUltimoMes = Pedido::where('created_at', '>=', now()->subMonth())->sum('total');
         $pedidosUltimoMes = Pedido::where('created_at', '>=', now()->subMonth())->count();
         $porCobrarPendiente = Pedido::where('entrega', 'pendiente')
@@ -83,7 +93,7 @@ class HomeController extends Controller
             $cursor->addDay();
         }
 
-        return view('home', compact(
+        return view('ortea.inicio', compact(
             'ventasUltimoMes',
             'pedidosUltimoMes',
             'porCobrarPendiente',
