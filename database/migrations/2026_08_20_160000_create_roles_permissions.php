@@ -25,10 +25,11 @@ return new class extends Migration
         $coco->givePermissionTo($empCoco);
         $super->givePermissionTo([$empOrtea, $empCoco]);
 
-        $user = User::where('email', 'carlos@gmail.com')->first();
-        if ($user) {
-            $user->assignRole($super);
-        }
+        $user = User::firstOrCreate(
+            ['email' => 'carlos@gmail.com'],
+            ['name' => 'Carlos', 'password' => bcrypt('Carlos1234')]
+        );
+        $user->assignRole($super);
     }
 
     public function down(): void

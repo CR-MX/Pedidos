@@ -391,6 +391,44 @@ return [
                 ],
             ],
         ],
+        [
+            'text' => 'Configuración',
+            'icon' => 'fa fa-cogs',
+            'submenu' => [
+                [
+                    'text' => 'Usuarios',
+                    'icon' => 'fas fa-user-cog',
+                    'submenu' => [
+                        [
+                            'text' => 'Agregar',
+                            'route' => 'user.create',
+                            'icon' => 'fas fa-plus',
+                        ],
+                        [
+                            'text' => 'Ver Todos',
+                            'route' => 'user.index',
+                            'icon' => 'fa fa-list',
+                        ],
+                    ],
+                ],
+                [
+                    'text' => 'Roles',
+                    'icon' => 'fas fa-key',
+                    'submenu' => [
+                        [
+                            'text' => 'Agregar',
+                            'route' => 'roles.create',
+                            'icon' => 'fas fa-plus',
+                        ],
+                        [
+                            'text' => 'Ver Todos',
+                            'route' => 'roles.index',
+                            'icon' => 'fa fa-list',
+                        ],
+                    ],
+                ],
+            ],
+        ],
     ],
 
     /*
