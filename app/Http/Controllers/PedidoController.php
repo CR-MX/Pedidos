@@ -18,6 +18,11 @@ use Illuminate\View\View;
 
 class PedidoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:EmpOrtea');
+    }
+
     /**
      * Display a listing of the resource.
      */

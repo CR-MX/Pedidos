@@ -11,6 +11,11 @@ use Illuminate\View\View;
 
 class TipoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:EmpOrtea');
+    }
+
     /**
      * Display a listing of the resource.
      */

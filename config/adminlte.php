@@ -321,10 +321,12 @@ return [
             'text' => 'Inicio',
             'route' => 'inicio',
             'icon' => 'fas fa-home',
+            'can' => 'EmpOrtea',
         ],
         [
             'text' => 'Pedidos',
             'icon' => 'fas fa-clipboard-list',
+            'can' => 'EmpOrtea',
             'submenu' => [
                 [
                     'text' => 'Agregar',
@@ -346,6 +348,7 @@ return [
         [
             'text' => 'Tipos',
             'icon' => 'fas fa-tag',
+            'can' => 'EmpOrtea',
             'submenu' => [
                 [
                     'text' => 'Agregar',
@@ -362,6 +365,7 @@ return [
         [
             'text' => 'Lugares',
             'icon' => 'fas fa-map-marker-alt',
+            'can' => 'EmpOrtea',
             'submenu' => [
                 [
                     'text' => 'Agregar',
@@ -378,6 +382,7 @@ return [
         [
             'text' => 'Colores',
             'icon' => 'fas fa-palette',
+            'can' => 'EmpOrtea',
             'submenu' => [
                 [
                     'text' => 'Agregar',
@@ -394,6 +399,7 @@ return [
         [
             'text' => 'Configuración',
             'icon' => 'fa fa-cogs',
+            'can' => 'SuperAdmin',
             'submenu' => [
                 [
                     'text' => 'Usuarios',

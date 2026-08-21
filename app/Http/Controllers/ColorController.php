@@ -11,6 +11,11 @@ use Illuminate\View\View;
 
 class ColorController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:EmpOrtea');
+    }
+
     public function index(Request $request): View
     {
         $colores = Color::paginate();
