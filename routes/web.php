@@ -10,6 +10,12 @@ use App\Http\Controllers\LugareController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\HomeControllerCoco;
+use App\Http\Controllers\PedidoCocoController;
+use App\Http\Controllers\ArticulosPedidoCocoController;
+use App\Http\Controllers\TipoCocoController;
+use App\Http\Controllers\LugareCocoController;
+use App\Http\Controllers\ColorCocoController;
 
 
 Auth::routes();
@@ -29,4 +35,17 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('colores', ColorController::class);
     Route::resource('user', UserController::class);
     Route::resource('roles', RoleController::class);
+
+    // CocoSublime
+    Route::get('/coco-home', [HomeControllerCoco::class, 'index'])->name('coco-home');
+    Route::get('/coco-inicio', [HomeControllerCoco::class, 'inicio'])->name('coco-inicio');
+    Route::get('coco-pedidos-por-fecha', [PedidoCocoController::class, 'porFecha'])->name('coco-pedidos.por-fecha');
+    Route::get('coco-articulos-por-color', [PedidoCocoController::class, 'articulosPorColor'])->name('coco-pedidos.articulos-por-color');
+    Route::post('coco-articulos-pedidos/{articulo}/realizado', [ArticulosPedidoCocoController::class, 'actualizarRealizado'])
+        ->name('coco-articulos-pedidos.actualizar-realizado');
+    Route::resource('coco-pedidos', PedidoCocoController::class);
+    Route::resource('coco-articulos-pedidos', ArticulosPedidoCocoController::class);
+    Route::resource('coco-tipos', TipoCocoController::class);
+    Route::resource('coco-lugares', LugareCocoController::class);
+    Route::resource('coco-colores', ColorCocoController::class);
 });

@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'logo' => '<b>Ortea</b>',
+    'logo' => '<b>VENSYS</b>',
     'logo_img' => 'img/logo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -315,8 +315,8 @@ return [
             'type' => 'sidebar-menu-search',
             'text' => 'search',
         ],
-        
-        ['header' => 'Menú'],
+
+        ['header' => 'ORTEA 3D'],
         [
             'text' => 'Inicio',
             'route' => 'inicio',
@@ -339,9 +339,9 @@ return [
                     'icon' => 'fa fa-list',
                 ],
                 [
-                    'text' => 'Artículos por Color',
+                    'text' => 'Producción',
                     'route' => 'pedidos.articulos-por-color',
-                    'icon' => 'fas fa-palette',
+                    'icon' => 'fas fa-industry',
                 ],
             ],
         ],
@@ -396,6 +396,82 @@ return [
                 ],
             ],
         ],
+        ['header' => 'COCOSUBLIM'],
+        [
+            'text' => 'Inicio',
+            'route' => 'coco-inicio',
+            'icon' => 'fas fa-home',
+        ],
+        [
+            'text' => 'Pedidos',
+            'icon' => 'fas fa-clipboard-list',
+            'submenu' => [
+                [
+                    'text' => 'Agregar',
+                    'route' => 'coco-pedidos.create',
+                    'icon' => 'fas fa-plus',
+                ],
+                [
+                    'text' => 'Ver todo',
+                    'route' => 'coco-pedidos.index',
+                    'icon' => 'fa fa-list',
+                ],
+                [
+                    'text' => 'Producción',
+                    'route' => 'coco-pedidos.articulos-por-color',
+                    'icon' => 'fas fa-industry',
+                ],
+            ],
+        ],
+        [
+            'text' => 'Tipos',
+            'icon' => 'fas fa-tag',
+            'submenu' => [
+                [
+                    'text' => 'Agregar',
+                    'route' => 'coco-tipos.create',
+                    'icon' => 'fas fa-plus',
+                ],
+                [
+                    'text' => 'Ver todo',
+                    'route' => 'coco-tipos.index',
+                    'icon' => 'fa fa-list',
+                ],
+            ],
+        ],
+        [
+            'text' => 'Lugares',
+            'icon' => 'fas fa-map-marker-alt',
+            'submenu' => [
+                [
+                    'text' => 'Agregar',
+                    'route' => 'coco-lugares.create',
+                    'icon' => 'fas fa-plus',
+                ],
+                [
+                    'text' => 'Ver todo',
+                    'route' => 'coco-lugares.index',
+                    'icon' => 'fa fa-list',
+                ],
+            ],
+        ],
+        [
+            'text' => 'Colores',
+            'icon' => 'fas fa-palette',
+            'submenu' => [
+                [
+                    'text' => 'Agregar',
+                    'route' => 'coco-colores.create',
+                    'icon' => 'fas fa-plus',
+                ],
+                [
+                    'text' => 'Ver todo',
+                    'route' => 'coco-colores.index',
+                    'icon' => 'fa fa-list',
+                ],
+            ],
+        ],
+        ['header' => 'GENERAL'],
         [
             'text' => 'Configuración',
             'icon' => 'fa fa-cogs',
