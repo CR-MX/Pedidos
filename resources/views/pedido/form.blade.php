@@ -18,7 +18,7 @@
         <div class="row">
             <div class="col">
                 <div class="form-group mb-2 mb20">
-                    <label for="nombre" class="form-label">{{ __('Nombre') }}</label>
+                    <label for="nombre" class="form-label">{{ __('Nombre') }} <span style="color:red">*</span></label>
                     <input type="text" name="nombre" class="form-control @error('nombre') is-invalid @enderror"
                         value="{{ old('nombre', $pedido?->nombre) }}" id="nombre" placeholder="Nombre">
                     {!! $errors->first('nombre', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
@@ -49,7 +49,7 @@
 
             <div class="col">
                 <div class="form-group mb-2 mb20">
-                    <label for="anticipo" class="form-label">{{ __('Anticipo') }}</label>
+                    <label for="anticipo" class="form-label">{{ __('Anticipo') }} <span style="color:red">*</span></label>
                     <input type="number" name="anticipo" class="form-control @error('anticipo') is-invalid @enderror"
                         value="{{ old('anticipo', $pedido?->anticipo) }}" id="anticipo" placeholder="Anticipo"
                         step="0.01">
@@ -58,7 +58,7 @@
             </div>
             <div class="col">
                 <div class="form-group mb-2 mb20">
-                    <label for="total" class="form-label">{{ __('Total') }}</label>
+                    <label for="total" class="form-label">{{ __('Total') }} <span style="color:red">*</span></label>
                     <input type="number" name="total" class="form-control @error('total') is-invalid @enderror"
                         value="{{ old('total', $pedido?->total) }}" id="total" placeholder="Total" step="0.01">
                     {!! $errors->first('total', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
@@ -141,12 +141,12 @@
         </div>
 
         <hr>
-        <h5>Artículos del Pedido</h5>
+        <h5>Artículos del Pedido <span style="color:red">*</span></h5>
         <div class="table-responsive">
             <table class="table table-sm table-striped table-bordered" id="tabla-articulos">
                 <thead>
                     <tr class="table-success">
-                        <th>Nombre
+                        <th>Nombre/Descripción <span style="color:red">*</span>
                             <br>
                             <input type="text" id="art-nombre" class="form-control" placeholder="Nombre">
                         </th>
@@ -159,11 +159,11 @@
                                 @endforeach
                             </select>
                         </th>
-                        <th>Cantidad
+                        <th>Cantidad <span style="color:red">*</span>
                             <br>
-                            <input type="number" id="art-cantidad" class="form-control" placeholder="0">
+                            <input type="number" id="art-cantidad" class="form-control" value="1">
                         </th>
-                        <th>Tipo
+                        <th>Tipo <span style="color:red">*</span>
                             <br>
                             <select id="art-tipo_id" class="form-control">
                                 <option value="">Seleccione</option>
@@ -225,7 +225,7 @@
                         @endforeach
                     </select>
                 </td>
-                <td><input type="number" name="articulos[__INDEX__][cantidad]" class="form-control" placeholder="0"></td>
+                <td><input type="number" name="articulos[__INDEX__][cantidad]" class="form-control" value="1"></td>
                 <td>
                     <select name="articulos[__INDEX__][tipo_id]" class="form-control">
                         <option value="">Seleccione</option>

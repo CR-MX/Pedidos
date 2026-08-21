@@ -127,7 +127,14 @@
                                     style="font-size:0.9rem; padding:4px 8px;">Pendiente</span>
                             @endif
                         </td>
-                        <td>{{ $pedido->lugar_nombre ?? '' }}</td>
+                        <td>
+                            @if ($pedido->lugar_nombre)
+                                {{ $pedido->lugar_nombre }}
+                            @else
+                                <span class="badge bg-secondary"
+                                    style="font-size:0.9rem; padding:4px 8px;">Pendiente</span>
+                            @endif
+                        </td>
                         <td style="white-space: nowrap;">
                             @if (($pedido->entrega ?? 'pendiente') === 'entregado')
                                 <span class="badge bg-success"

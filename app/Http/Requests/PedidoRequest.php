@@ -35,7 +35,7 @@ class PedidoRequest extends FormRequest
 			'anticipo' => 'required',
 			'total' => 'required',
 			'fecha_hora_entrega' => 'nullable',
-			'lugar_id' => 'required',
+			'lugar_id' => 'nullable',
 			'informacion_adicional' => 'nullable|string',
 			'entrega' => 'required|in:pendiente,entregado',
 			'articulos' => 'required|array|min:1',
