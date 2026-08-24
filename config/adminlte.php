@@ -316,7 +316,7 @@ return [
             'text' => 'search',
         ],
 
-        ['header' => 'ORTEA 3D'],
+        ['header' => 'ORTEA 3D', 'can' => 'EmpOrtea'],
         [
             'text' => 'Inicio',
             'route' => 'inicio',
@@ -396,15 +396,17 @@ return [
                 ],
             ],
         ],
-        ['header' => 'COCOSUBLIM'],
+        ['header' => 'COCOSUBLIM', 'can' => 'EmpCocoSublime'],
         [
             'text' => 'Inicio',
             'route' => 'coco-inicio',
             'icon' => 'fas fa-home',
+            'can' => 'EmpCocoSublime',
         ],
         [
             'text' => 'Pedidos',
             'icon' => 'fas fa-clipboard-list',
+            'can' => 'EmpCocoSublime',
             'submenu' => [
                 [
                     'text' => 'Agregar',
@@ -426,6 +428,7 @@ return [
         [
             'text' => 'Tipos',
             'icon' => 'fas fa-tag',
+            'can' => 'EmpCocoSublime',
             'submenu' => [
                 [
                     'text' => 'Agregar',
@@ -442,6 +445,7 @@ return [
         [
             'text' => 'Lugares',
             'icon' => 'fas fa-map-marker-alt',
+            'can' => 'EmpCocoSublime',
             'submenu' => [
                 [
                     'text' => 'Agregar',
@@ -458,6 +462,7 @@ return [
         [
             'text' => 'Colores',
             'icon' => 'fas fa-palette',
+            'can' => 'EmpCocoSublime',
             'submenu' => [
                 [
                     'text' => 'Agregar',
@@ -471,7 +476,7 @@ return [
                 ],
             ],
         ],
-        ['header' => 'GENERAL'],
+        ['header' => 'GENERAL', 'can' => 'SuperAdmin'],
         [
             'text' => 'Configuración',
             'icon' => 'fa fa-cogs',
