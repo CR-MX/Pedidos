@@ -56,7 +56,8 @@ class PedidoController extends Controller
 
         if ($request->has('articulos')) {
             foreach ($request->articulos as $item) {
-                $pedido->articulosPedidos()->create($item);
+                $item['pedido_id'] = $pedido->id;
+                ArticulosPedido::create($item);
             }
         }
 
@@ -96,15 +97,15 @@ class PedidoController extends Controller
         $pedido->update($request->validated());
 
         $realizados = $pedido->articulosPedidos()
-            ->pluck('realizado', DB::raw("CONCAT(nombre, '|', color)"))
+            ->pluck('realizado', 'id')
             ->toArray();
 
         $pedido->articulosPedidos()->delete();
         if ($request->has('articulos')) {
             foreach ($request->articulos as $item) {
-                $articulo = $pedido->articulosPedidos()->create($item);
-                $key = $item['nombre'] . '|' . $item['color'];
-                if (isset($realizados[$key]) && $realizados[$key]) {
+                $item['pedido_id'] = $pedido->id;
+                $articulo = ArticulosPedido::create($item);
+                if (isset($item['id']) && isset($realizados[$item['id']]) && $realizados[$item['id']]) {
                     $articulo->update(['realizado' => true]);
                 }
             }

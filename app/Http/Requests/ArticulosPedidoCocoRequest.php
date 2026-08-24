@@ -16,8 +16,9 @@ class ArticulosPedidoCocoRequest extends FormRequest
         return [
             'pedido_id' => 'required',
             'nombre' => 'required|string',
-            'color' => 'required|string',
+            'color' => 'nullable|string',
             'cantidad' => 'required',
+            'unidad' => 'required|in:pza,cm,metro',
             'tipo_id' => 'required',
         ];
     }

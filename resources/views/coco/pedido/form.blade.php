@@ -163,6 +163,14 @@
                             <br>
                             <input type="number" id="art-cantidad" class="form-control" value="1">
                         </th>
+                        <th>Unidad
+                            <br>
+                            <select id="art-unidad" class="form-control">
+                                <option value="pza">Pza</option>
+                                <option value="cm">Cm</option>
+                                <option value="metro">Metro</option>
+                            </select>
+                        </th>
                         <th>Tipo <span style="color:red">*</span>
                             <br>
                             <select id="art-tipo_id" class="form-control">
@@ -183,6 +191,7 @@
                     @if (isset($pedido->articulosPedidos) && $pedido->articulosPedidos->count() > 0)
                         @foreach ($pedido->articulosPedidos as $i => $art)
                             <tr>
+                                <input type="hidden" name="articulos[{{ $i }}][id]" value="{{ $art->id }}">
                                 <td><input type="text" name="articulos[{{ $i }}][nombre]" class="form-control" value="{{ $art->nombre }}"></td>
                                 <td>
                                     <select name="articulos[{{ $i }}][color]" class="form-control">
@@ -193,6 +202,13 @@
                                     </select>
                                 </td>
                                 <td><input type="number" name="articulos[{{ $i }}][cantidad]" class="form-control" value="{{ $art->cantidad }}"></td>
+                                <td>
+                                    <select name="articulos[{{ $i }}][unidad]" class="form-control">
+                                        <option value="pza" {{ $art->unidad == 'pza' ? 'selected' : '' }}>Pza</option>
+                                        <option value="cm" {{ $art->unidad == 'cm' ? 'selected' : '' }}>Cm</option>
+                                        <option value="metro" {{ $art->unidad == 'metro' ? 'selected' : '' }}>Metro</option>
+                                    </select>
+                                </td>
                                 <td>
                                     <select name="articulos[{{ $i }}][tipo_id]" class="form-control">
                                         <option value="">Seleccione</option>
@@ -226,6 +242,13 @@
                     </select>
                 </td>
                 <td><input type="number" name="articulos[__INDEX__][cantidad]" class="form-control" value="1"></td>
+                <td>
+                    <select name="articulos[__INDEX__][unidad]" class="form-control">
+                        <option value="pza">Pza</option>
+                        <option value="cm">Cm</option>
+                        <option value="metro">Metro</option>
+                    </select>
+                </td>
                 <td>
                     <select name="articulos[__INDEX__][tipo_id]" class="form-control">
                         <option value="">Seleccione</option>
@@ -330,6 +353,7 @@
         tr.querySelector('input[name="articulos[' + articuloIndex + '][nombre]"]').value = document.getElementById('art-nombre').value;
         tr.querySelector('select[name="articulos[' + articuloIndex + '][color]"]').value = document.getElementById('art-color').value;
         tr.querySelector('input[name="articulos[' + articuloIndex + '][cantidad]"]').value = document.getElementById('art-cantidad').value;
+        tr.querySelector('select[name="articulos[' + articuloIndex + '][unidad]"]').value = document.getElementById('art-unidad').value;
         tr.querySelector('select[name="articulos[' + articuloIndex + '][tipo_id]"]').value = document.getElementById('art-tipo_id').value;
         tbody.prepend(tr);
         articuloIndex++;

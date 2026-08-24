@@ -18,10 +18,10 @@
                         </div>
                     </div>
                     <div class="card-body bg-white">
-                        @forelse ($grupos as $color => $items)
+                        @forelse ($grupos as $tipo => $items)
                             <div class="card mb-3">
                                 <div class="card-header py-2" style="background-color: #f0f0f0;">
-                                    <strong>{{ $color }}</strong>
+                                    <strong>{{ $tipo }}</strong>
                                     <span class="badge bg-secondary float-right">{{ $items->sum('cantidad') }} pzas</span>
                                 </div>
                                 <div class="card-body p-0">
@@ -30,6 +30,7 @@
                                             <tr>
                                                 <th>Cant.</th>
                                                 <th>Artículo</th>
+                                                <th>Color</th>
                                                 <th>Tipo</th>
                                                 <th>Pedido</th>
                                                 <th>Hora Entrega</th>
@@ -42,6 +43,7 @@
                                                 <tr>
                                                     <td>{{ $art->cantidad }}</td>
                                                     <td>{{ $art->nombre }}</td>
+                                                    <td>{{ $art->color }}</td>
                                                     <td>{{ $art->tipo?->nombre ?? '' }}</td>
                                                     <td>{{ $art->pedido?->nombre ?? '' }}</td>
                                                     <td>{{ \Carbon\Carbon::parse($art->pedido?->fecha_hora_entrega)->format('h:i A') }}</td>

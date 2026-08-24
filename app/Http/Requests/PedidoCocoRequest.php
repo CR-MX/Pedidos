@@ -32,8 +32,9 @@ class PedidoCocoRequest extends FormRequest
             'entrega' => 'required|in:pendiente,entregado',
             'articulos' => 'required|array|min:1',
             'articulos.*.nombre' => 'required|string',
-            'articulos.*.color' => 'required|string',
+            'articulos.*.color' => 'nullable|string',
             'articulos.*.cantidad' => 'required|integer',
+            'articulos.*.unidad' => 'required|in:pza,cm,metro',
             'articulos.*.tipo_id' => 'required|integer',
         ];
     }

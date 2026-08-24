@@ -198,7 +198,7 @@
                         <table class="table table-sm table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Nombre</th>
+                                    <th>Nombre/Descripción</th>
                                     <th>Color</th>
                                     <th>Cantidad</th>
                                     <th>Tipo</th>

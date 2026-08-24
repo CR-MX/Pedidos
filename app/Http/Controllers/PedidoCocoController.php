@@ -44,10 +44,10 @@ class PedidoCocoController extends Controller
     public function store(PedidoCocoRequest $request): RedirectResponse
     {
         $pedido = PedidoCoco::create($request->validated());
-
         if ($request->has('articulos')) {
             foreach ($request->articulos as $item) {
-                $pedido->articulosPedidos()->create($item);
+                $item['pedido_id'] = $pedido->id;
+                ArticulosPedidoCoco::create($item);
             }
         }
 
@@ -73,20 +73,21 @@ class PedidoCocoController extends Controller
         return view('coco.pedido.edit', compact('pedido', 'lugares', 'tipos', 'colores'));
     }
 
-    public function update(PedidoCocoRequest $request, PedidoCoco $pedido): RedirectResponse
+    public function update(PedidoCocoRequest  $request, PedidoCoco $coco_pedido): RedirectResponse
     {
-        $pedido->update($request->validated());
-
-        $realizados = $pedido->articulosPedidos()
-            ->pluck('realizado', DB::raw("CONCAT(nombre, '|', color)"))
+        $coco_pedido->update($request->except('articulos'));
+        $realizados = $coco_pedido->articulosPedidos()
+            ->pluck('realizado', 'id')
             ->toArray();
+        
+        
 
-        $pedido->articulosPedidos()->delete();
+        $coco_pedido->articulosPedidos()->delete();
         if ($request->has('articulos')) {
             foreach ($request->articulos as $item) {
-                $articulo = $pedido->articulosPedidos()->create($item);
-                $key = $item['nombre'] . '|' . $item['color'];
-                if (isset($realizados[$key]) && $realizados[$key]) {
+                $item['pedido_id'] = $coco_pedido->id;
+                $articulo = ArticulosPedidoCoco::create($item);
+                if (isset($item['id']) && isset($realizados[$item['id']]) && $realizados[$item['id']]) {
                     $articulo->update(['realizado' => true]);
                 }
             }
@@ -128,10 +129,11 @@ class PedidoCocoController extends Controller
             ->whereHas('pedido', function ($q) use ($hoy) {
                 $q->whereDate('fecha_hora_entrega', $hoy);
             })
-            ->orderBy('color')
             ->get();
 
-        $grupos = $articulos->groupBy('color');
+        $grupos = $articulos->groupBy(function ($art) {
+            return $art->tipo?->nombre ?? 'Sin tipo';
+        });
 
         $fecha = $hoy->format('d/m/Y');
         $fechaInput = $hoy->format('Y-m-d');

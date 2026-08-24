@@ -27,6 +27,7 @@ class ArticulosPedidoCoco extends Model
         'nombre',
         'color',
         'cantidad',
+        'unidad',
         'tipo_id',
         'realizado',
     ];

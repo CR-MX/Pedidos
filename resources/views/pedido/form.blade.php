@@ -183,6 +183,7 @@
                     @if (isset($pedido->articulosPedidos) && $pedido->articulosPedidos->count() > 0)
                         @foreach ($pedido->articulosPedidos as $i => $art)
                             <tr>
+                                <input type="hidden" name="articulos[{{ $i }}][id]" value="{{ $art->id }}">
                                 <td><input type="text" name="articulos[{{ $i }}][nombre]" class="form-control" value="{{ $art->nombre }}"></td>
                                 <td>
                                     <select name="articulos[{{ $i }}][color]" class="form-control">
