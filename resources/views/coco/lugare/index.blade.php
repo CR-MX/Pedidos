@@ -5,11 +5,12 @@
 @endsection
 
 @section('content')
+    <br>
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header color-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             <span id="card_title">{{ __('Lugares') }}</span>
                             <div class="float-right">
@@ -33,7 +34,6 @@
                                             <td>{{ $lugare->nombre }}</td>
                                             <td>
                                                 <form action="{{ route('coco-lugares.destroy', $lugare->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary" href="{{ route('coco-lugares.show', $lugare->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
                                                     <a class="btn btn-sm btn-success" href="{{ route('coco-lugares.edit', $lugare->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
                                                     @csrf
                                                     @method('DELETE')
