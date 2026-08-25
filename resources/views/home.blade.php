@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'OSYS')
+@section('title', 'Ortea')
 
 @section('content')
 <br>
@@ -18,7 +18,7 @@
                     @endif
 
                     <div class="text-center py-5">
-                        <h1 class="display-4">OSYS</h1>
+                        <h1 class="display-4">Ortea</h1>
                         <p class="lead">Sistema de Ventas y Gestión </p>
                     </div>
                 </div>
