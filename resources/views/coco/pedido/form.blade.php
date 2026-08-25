@@ -43,6 +43,22 @@
                     {!! $errors->first('red_social', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
                 </div>
             </div>
+            <div class="col">
+                <div class="form-group mb-2 mb20">
+                    <label for="metodo_pago" class="form-label">{{ __('Método de Pago') }}</label>
+                    <select name="metodo_pago" class="form-control @error('metodo_pago') is-invalid @enderror"
+                        id="metodo_pago">
+                        <option value="">Selecciona opción</option>
+                        <option value="transferencia"
+                            {{ old('metodo_pago', $pedido?->metodo_pago) == 'transferencia' ? 'selected' : '' }}>Transferencia
+                        </option>
+                        <option value="efectivo"
+                            {{ old('metodo_pago', $pedido?->metodo_pago) == 'efectivo' ? 'selected' : '' }}>Efectivo
+                        </option>
+                    </select>
+                    {!! $errors->first('metodo_pago', '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+                </div>
+            </div>
         </div>
 
         <div class="row">

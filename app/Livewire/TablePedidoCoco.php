@@ -62,6 +62,7 @@ class TablePedidoCoco extends Component
                 'pedidos_cocos.id',
                 'pedidos_cocos.nombre',
                 'pedidos_cocos.red_social',
+                'pedidos_cocos.metodo_pago',
                 'pedidos_cocos.anticipo',
                 DB::raw('(pedidos_cocos.total - pedidos_cocos.anticipo) as por_cobrar'),
                 DB::raw('DATEDIFF(pedidos_cocos.fecha_hora_entrega, CURDATE()) as dias_restantes'),

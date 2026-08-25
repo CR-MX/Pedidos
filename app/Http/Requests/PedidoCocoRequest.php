@@ -24,6 +24,7 @@ class PedidoCocoRequest extends FormRequest
         return [
             'nombre' => 'required|string',
             'red_social' => 'nullable|string',
+        'metodo_pago' => 'nullable|in:transferencia,efectivo',
             'anticipo' => 'required',
             'total' => 'required',
             'fecha_hora_entrega' => 'nullable',

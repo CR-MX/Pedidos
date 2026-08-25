@@ -72,6 +72,7 @@
                     <th>Lugar</th>
                     <th>Entrega</th>
                     <th>Art.Imp</th>
+                    <th>Método Pago</th>
                     <th>Por Cobrar</th>
                     <th>Acciones</th>
                 </tr>
@@ -79,6 +80,7 @@
                     <th></th>
                     <th><input wire:model.live.debounce.250ms="search_nombre" type="text" class="form-control"
                             placeholder="Buscar..."></th>
+                    
                     <th><input wire:model.live="search_fecha_hora" type="date" class="form-control"></th>
                     <th>
                         <select wire:model.live="search_lugar" class="form-control">
@@ -95,6 +97,7 @@
                             <option value="entregado">Entregado</option>
                         </select>
                     </th>
+                    <th></th>
                     <th></th>
                     <th></th>
                     <th></th>
@@ -152,6 +155,15 @@
                                 &nbsp; 
                                 <i class="fas fa-box"></i>
                             </button>
+                        </td>
+                        <td>
+                            @if ($pedido->metodo_pago === 'transferencia')
+                                <span class="badge bg-primary" style="font-size:0.9rem; padding:4px 8px;">Transferencia</span>
+                            @elseif ($pedido->metodo_pago === 'efectivo')
+                                <span class="badge bg-success" style="font-size:0.9rem; padding:4px 8px;">Efectivo</span>
+                            @else
+                                <span class="badge bg-secondary" style="font-size:0.9rem; padding:4px 8px;">—</span>
+                            @endif
                         </td>
                         <td>
                             @if ($pedido->por_cobrar > 0)

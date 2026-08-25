@@ -28,6 +28,7 @@ class PedidoCoco extends Model
     protected $fillable = [
         'nombre',
         'red_social',
+        'metodo_pago',
         'anticipo',
         'total',
         'fecha_hora_entrega',
