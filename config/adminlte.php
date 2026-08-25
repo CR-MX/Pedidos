@@ -318,9 +318,9 @@ return [
 
         ['header' => 'ORTEA 3D', 'can' => 'EmpOrtea'],
         [
-            'text' => 'Inicio',
+            'text' => 'Gráficas',
             'route' => 'inicio',
-            'icon' => 'fas fa-home',
+            'icon' => 'fas fa-chart-bar',
             'can' => 'EmpOrtea',
         ],
         [
@@ -398,9 +398,9 @@ return [
         ],
         ['header' => 'COCOSUBLIM', 'can' => 'EmpCocoSublime'],
         [
-            'text' => 'Inicio',
+            'text' => 'Gráficas',
             'route' => 'coco-inicio',
-            'icon' => 'fas fa-home',
+            'icon' => 'fas fa-chart-bar',
             'can' => 'EmpCocoSublime',
         ],
         [
