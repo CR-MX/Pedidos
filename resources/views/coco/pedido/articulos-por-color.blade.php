@@ -30,7 +30,7 @@
                                             <tr>
                                                 <th>Cant.</th>
                                                 <th>Artículo</th>
-                                                <th>Color</th>
+                                                <th>Producto</th>
                                                 <th>Tipo</th>
                                                 <th>Pedido</th>
                                                 <th>Hora Entrega</th>

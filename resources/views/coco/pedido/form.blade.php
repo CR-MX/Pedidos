@@ -150,7 +150,7 @@
                             <br>
                             <input type="text" id="art-nombre" class="form-control" placeholder="Nombre">
                         </th>
-                        <th>Color
+                        <th>Producto
                             <br>
                             <select id="art-color" class="form-control">
                                 <option value="">Seleccione</option>

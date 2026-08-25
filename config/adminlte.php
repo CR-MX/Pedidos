@@ -460,8 +460,8 @@ return [
             ],
         ],
         [
-            'text' => 'Colores',
-            'icon' => 'fas fa-palette',
+            'text' => 'Producto',
+            'icon' => 'fas fa-box',
             'can' => 'EmpCocoSublime',
             'submenu' => [
                 [

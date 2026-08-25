@@ -11,7 +11,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <span id="card_title">{{ __('Colores') }}</span>
+                            <span id="card_title">Productos</span>
                             <div class="float-right">
                                 <a href="{{ route('coco-colores.create') }}" class="btn btn-primary btn-sm float-right" data-placement="left">{{ __('Create New') }}</a>
                             </div>
@@ -33,7 +33,7 @@
                                             <td>{{ $color->nombre }}</td>
                                             <td>
                                                 <form action="{{ route('coco-colores.destroy', $color->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary" href="{{ route('coco-colores.show', $color->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
+                                                    
                                                     <a class="btn btn-sm btn-success" href="{{ route('coco-colores.edit', $color->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
                                                     @csrf
                                                     @method('DELETE')
