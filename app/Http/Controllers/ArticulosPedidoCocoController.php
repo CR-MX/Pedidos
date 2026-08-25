@@ -57,9 +57,9 @@ class ArticulosPedidoCocoController extends Controller
         return view('coco.articulos-pedido.edit', compact('articulosPedido', 'colores'));
     }
 
-    public function update(ArticulosPedidoCocoRequest $request, ArticulosPedidoCoco $articulosPedido): RedirectResponse
+    public function update(ArticulosPedidoCocoRequest $request, ArticulosPedidoCoco $coco_articulos_pedido): RedirectResponse
     {
-        $articulosPedido->update($request->validated());
+        $coco_articulos_pedido->update($request->validated());
 
         return Redirect::route('coco-articulos-pedidos.index')
             ->with('success', 'Artículo actualizado exitosamente');

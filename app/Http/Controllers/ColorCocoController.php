@@ -53,9 +53,9 @@ class ColorCocoController extends Controller
         return view('coco.color.edit', compact('color'));
     }
 
-    public function update(ColorCocoRequest $request, ColorCoco $color): RedirectResponse
+    public function update(ColorCocoRequest $request, ColorCoco $coco_colore): RedirectResponse
     {
-        $color->update($request->validated());
+        $coco_colore->update($request->validated());
 
         return Redirect::route('coco-colores.index')
             ->with('success', 'Color actualizado exitosamente');

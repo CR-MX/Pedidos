@@ -53,9 +53,9 @@ class TipoCocoController extends Controller
         return view('coco.tipo.edit', compact('tipo'));
     }
 
-    public function update(TipoCocoRequest $request, TipoCoco $tipo): RedirectResponse
+    public function update(TipoCocoRequest $request, TipoCoco $coco_tipo): RedirectResponse
     {
-        $tipo->update($request->validated());
+        $coco_tipo->update($request->validated());
 
         return Redirect::route('coco-tipos.index')
             ->with('success', 'Tipo actualizado exitosamente');

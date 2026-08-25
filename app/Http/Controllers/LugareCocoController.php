@@ -53,9 +53,9 @@ class LugareCocoController extends Controller
         return view('coco.lugare.edit', compact('lugare'));
     }
 
-    public function update(LugareCocoRequest $request, LugareCoco $lugare): RedirectResponse
+    public function update(LugareCocoRequest $request, LugareCoco $coco_lugare): RedirectResponse
     {
-        $lugare->update($request->validated());
+        $coco_lugare->update($request->validated());
 
         return Redirect::route('coco-lugares.index')
             ->with('success', 'Lugar actualizado exitosamente');
